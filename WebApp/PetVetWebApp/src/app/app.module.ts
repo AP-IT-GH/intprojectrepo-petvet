@@ -1,34 +1,45 @@
 import { BrowserModule } from '@angular/platform-browser';
 import { NgModule } from '@angular/core';
-import {AngularFireModule} from "@angular/fire";
-import {AngularFireAuthModule} from "@angular/fire/auth";
-
+import { FormsModule } from '@angular/forms';
+import { HttpModule } from '@angular/http';
+import { AngularFireModule } from 'angularfire2';
 import { AppComponent } from './app.component';
-import { AppRoutingModule } from './app-routing.module';
-import { LoginComponent } from './admin/login/login.component';
-import { RegisterComponent } from './admin/register/register.component';
-import { ForgotPasswordComponent } from './admin/forgot-password/forgot-password.component';
-import { VerifyEmailComponent } from './admin/verify-email/verify-email.component';
+import { LoginComponent } from './login/login.component';
+import { EmailComponent } from './email/email.component';
+import { SignupComponent } from './signup/signup.component';
+import { MembersComponent } from './members/members.component';
+import { AuthGuard } from './auth.service';
+import { routes } from './app.routes';
 
+
+// Must export the config
 const firebaseConfig = {
-  //copy paste api key
+  apiKey: "AIzaSyD-EWtCcadCjtv9zX9x-thILOlBh-MXPd4",
+  authDomain: "petvet-268116.firebaseapp.com",
+  databaseURL: "https://petvet-268116.firebaseio.com",
+  projectId: "petvet-268116",
+  storageBucket: "petvet-268116.appspot.com",
+  messagingSenderId: "1080934441565",
+  appId: "1:1080934441565:web:51fbda4495c98722bd23b4",
+  measurementId: "G-XZ28FNEXX1"
 };
 
 @NgModule({
   declarations: [
     AppComponent,
     LoginComponent,
-    RegisterComponent,
-    ForgotPasswordComponent,
-    VerifyEmailComponent,
+    EmailComponent,
+    SignupComponent,
+    MembersComponent
   ],
   imports: [
     BrowserModule,
+    FormsModule,
+    HttpModule,
     AngularFireModule.initializeApp(firebaseConfig),
-    AngularFireAuthModule,
-    AppRoutingModule
+    routes
   ],
-  providers: [],
+  providers: [AuthGuard],
   bootstrap: [AppComponent]
 })
 export class AppModule { }
