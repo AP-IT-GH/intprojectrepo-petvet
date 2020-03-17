@@ -15,22 +15,37 @@ import com.google.android.gms.tasks.OnCompleteListener;
 import com.google.android.gms.tasks.Task;
 import com.google.firebase.auth.AuthResult;
 import com.google.firebase.auth.FirebaseAuth;
+import com.google.firebase.auth.FirebaseUser;
 
-public class MainActivity extends AppCompatActivity {
-EditText emailId, password;
-Button btnSignUp;
-TextView tvSignIn;
-FirebaseAuth mFirebaseAuth;
+public class LoginScreen extends AppCompatActivity {
+    EditText emailId, password;
+    Button btnSignUp;
+    TextView tvSignUp;
+    FirebaseAuth mFirebaseAuth;
+    private FirebaseAuth.AuthStateListener mAuthStateListener;
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
-        setContentView(R.layout.activity_main);
-
+        setContentView(R.layout.activity_login_screen);
         mFirebaseAuth = FirebaseAuth.getInstance();
         emailId = findViewById(R.id.emailField);
         password = findViewById(R.id.passwordField);
         btnSignUp = findViewById(R.id.btnLogIn);
-        tvSignIn = findViewById(R.id.txtToLogIn);
+        tvSignUp = findViewById(R.id.txtToSignUp);
+
+        mAuthStateListener = new FirebaseAuth.AuthStateListener() {
+            FirebaseUser mFireBaseUser = mFirebaseAuth.getCurrentUser();
+            @Override
+            public void onAuthStateChanged(@NonNull FirebaseAuth firebaseAuth) {
+                if (mFireBaseUser != null)
+                {
+                    Toast.makeText(LoginScreen.this,"You are logged in",Toast.LENGTH_LONG).show();
+                    Intent i = new Intent( LoginScreen.this, HomeScreen.class);
+                    startActivity(i);
+                }
+
+            }
+        };
         btnSignUp.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View v) {
@@ -53,29 +68,36 @@ FirebaseAuth mFirebaseAuth;
                 }
                 else if(!(email.isEmpty() && pwd.isEmpty()))
                 {
-                    mFirebaseAuth.createUserWithEmailAndPassword(email,pwd).addOnCompleteListener(MainActivity.this, new OnCompleteListener<AuthResult>() {
+                    mFirebaseAuth.signInWithEmailAndPassword(email,pwd).addOnCompleteListener(LoginScreen.this, new OnCompleteListener<AuthResult>() {
                         @Override
                         public void onComplete(@NonNull Task<AuthResult> task) {
                             if(!task.isSuccessful())
                             {
-                                Toast.makeText(getApplicationContext(), "Signup Unsuccessfull! Please try again", Toast.LENGTH_SHORT).show();
+                                Toast.makeText(getApplicationContext(), "Login Unsuccessfull! Please try again", Toast.LENGTH_SHORT).show();
                             }
                             else
-                                {
-                                    startActivity(new Intent(MainActivity.this, HomeScreen.class));
-                                }
+                            {
+                                Intent intToHome = new Intent(LoginScreen.this, HomeScreen.class);
+                                startActivity(intToHome);
+                            }
                         }
                     });
+
                 }
             }
         });
-        tvSignIn.setOnClickListener(new View.OnClickListener() {
+        tvSignUp.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View v) {
-                Intent i = new Intent(MainActivity.this,LoginScreen.class);
+                Intent i = new Intent(LoginScreen.this,LoginScreen.class);
                 startActivity(i);
             }
         });
+    }
 
+    @Override
+    protected void onStart() {
+        super.onStart();
+        mFirebaseAuth.addAuthStateListener(mAuthStateListener);
     }
 }
