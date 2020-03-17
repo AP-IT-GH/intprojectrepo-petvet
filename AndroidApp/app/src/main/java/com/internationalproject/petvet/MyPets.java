@@ -5,6 +5,7 @@ import androidx.appcompat.app.AppCompatActivity;
 import android.os.Bundle;
 import android.util.Log;
 import android.widget.ArrayAdapter;
+import android.widget.BaseAdapter;
 import android.widget.ListView;
 
 
@@ -31,13 +32,16 @@ public class MyPets extends AppCompatActivity {
 
     private User tempUser;
      ListView listView;
-
+    ArrayList<String> petnames;
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_my_pets);
         tempUser = new User("rdPZmdidJ3YmTgVSaKlxinoWFVK2");
-
+        petnames = new ArrayList<>();
+        listView = findViewById(R.id.list_view);
+        final BaseAdapter arrayAdapter = new ArrayAdapter(this, android.R.layout.simple_list_item_1,petnames);
+        listView.setAdapter(arrayAdapter);
         String URL = "http://10.0.2.2:3000/pet/owner/"+tempUser.GetId();
 
         RequestQueue requestQueue = Volley.newRequestQueue(this);
@@ -54,7 +58,11 @@ public class MyPets extends AppCompatActivity {
                         ArrayList<pet> pets = new ArrayList<pet>(Arrays.asList(petarray));
 
                         tempUser.SetPets(pets);
-                        Log.e("test", tempUser.GetPets().get(1).name.toString());
+                        for (pet pet: tempUser.GetPets()
+                        ) {
+                            petnames.add(pet.name);
+                        }
+                        arrayAdapter.notifyDataSetChanged();
                     }
                 },
                 new Response.ErrorListener() {
@@ -65,15 +73,10 @@ public class MyPets extends AppCompatActivity {
                 }
         );
         requestQueue.add(arrayRequest);
-        ArrayList<String> petnames = new ArrayList<>();
 
-        for (pet pet: tempUser.GetPets()
-             ) {
-            petnames.add(pet.name);
-        }
 
-        listView = findViewById(R.id.list_view);
-        ArrayAdapter arrayAdapter = new ArrayAdapter(this, android.R.layout.simple_list_item_1,petnames);
-        listView.setAdapter(arrayAdapter);
+
+
+
     }
 }
