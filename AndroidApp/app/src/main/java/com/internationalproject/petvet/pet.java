@@ -1,11 +1,14 @@
 package com.internationalproject.petvet;
 
 class pet {
-    private String _name;
-    private int _id;
+    public String name;
+    public int id;
+    public String uuid;
+    public String vet_uuid;
 
-    public pet(int id, String name){
-        this._id = id;
-        this._name = name;
+    public pet(String uuid,int id, String name){
+        this.uuid = uuid;
+        this.id = id;
+        this.name = name;
     }
 }
