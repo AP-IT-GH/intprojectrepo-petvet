@@ -25,7 +25,7 @@ public class HomeScreen extends AppCompatActivity {
         setContentView(R.layout.activity_home_screen);
         tempUser = new User("rdPZmdidJ3YmTgVSaKlxinoWFVK2");
 
-        String URL = "http://10.0.2.2:3000/pet/owner/"+tempUser.GetId();
+        String URL = "http://35.195.71.21:3000/pet/owner/"+tempUser.GetId();
 
         RequestQueue requestQueue = Volley.newRequestQueue(this);
 
