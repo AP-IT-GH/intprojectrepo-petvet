@@ -1,45 +1,52 @@
 import { BrowserModule } from '@angular/platform-browser';
 import { NgModule } from '@angular/core';
-import { FormsModule } from '@angular/forms';
-import { HttpModule } from '@angular/http';
-import { AngularFireModule } from 'angularfire2';
+import { HttpClientModule } from "@angular/common/http";
+
+
+// Reactive Form
+import { ReactiveFormsModule } from "@angular/forms";
+
+// App routing modules
+import { AppRoutingModule } from './shared/routing/app-routing.module';
+
+// App components
 import { AppComponent } from './app.component';
-import { LoginComponent } from './login/login.component';
-import { EmailComponent } from './email/email.component';
-import { SignupComponent } from './signup/signup.component';
-import { MembersComponent } from './members/members.component';
-import { AuthGuard } from './auth.service';
-import { routes } from './app.routes';
+import { SignInComponent } from './components/sign-in/sign-in.component';
+import { SignUpComponent } from './components/sign-up/sign-up.component';
+import { DashboardComponent } from './components/dashboard/dashboard.component';
+import { ForgotPasswordComponent } from './components/forgot-password/forgot-password.component';
+import { VerifyEmailComponent } from './components/verify-email/verify-email.component';
 
+// Firebase services + enviorment module
+import { AngularFireModule } from "@angular/fire";
+import { AngularFireAuthModule } from "@angular/fire/auth";
+import { AngularFirestoreModule } from '@angular/fire/firestore';
+import { environment } from '../environments/environment';
 
-// Must export the config
-const firebaseConfig = {
-  apiKey: "AIzaSyD-EWtCcadCjtv9zX9x-thILOlBh-MXPd4",
-  authDomain: "petvet-268116.firebaseapp.com",
-  databaseURL: "https://petvet-268116.firebaseio.com",
-  projectId: "petvet-268116",
-  storageBucket: "petvet-268116.appspot.com",
-  messagingSenderId: "1080934441565",
-  appId: "1:1080934441565:web:51fbda4495c98722bd23b4",
-  measurementId: "G-XZ28FNEXX1"
-};
+// Auth service
+import { AuthService } from "./shared/services/auth.service";
+
 
 @NgModule({
   declarations: [
     AppComponent,
-    LoginComponent,
-    EmailComponent,
-    SignupComponent,
-    MembersComponent
+    SignInComponent,
+    SignUpComponent,
+    DashboardComponent,
+    ForgotPasswordComponent,
+    VerifyEmailComponent
   ],
   imports: [
     BrowserModule,
-    FormsModule,
-    HttpModule,
-    AngularFireModule.initializeApp(firebaseConfig),
-    routes
+    AppRoutingModule,
+    AngularFireModule.initializeApp(environment.firebase),
+    AngularFireAuthModule,
+    AngularFirestoreModule,
+    ReactiveFormsModule,
+    HttpClientModule
   ],
-  providers: [AuthGuard],
+  providers: [AuthService],
   bootstrap: [AppComponent]
 })
+
 export class AppModule { }
