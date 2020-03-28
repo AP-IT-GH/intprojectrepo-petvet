@@ -54,22 +54,6 @@ this.data.postPetData(this.ownerId, value).subscribe(
   (error:any)=>console.log(error)
 )
 this.value = "";
-<<<<<<< HEAD
-=======
-
-  }
-
-
-
-
-
-
-
-
-
-
->>>>>>> WebAppDashboard
-
   }
 
 ownerName:string
