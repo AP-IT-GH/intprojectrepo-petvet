@@ -13,7 +13,6 @@ import { VirtualTimeScheduler } from 'rxjs';
 export class DashboardComponent implements OnInit {
  
   pets:any=[];
-  petsowner:any[];
   
 ownerId:string
   constructor(
@@ -21,7 +20,7 @@ ownerId:string
     public router: Router,
     public ngZone: NgZone,
     private data : DataService,
-    private userid: AuthService  ) 
+      ) 
     {
       
     let owner = localStorage.getItem('user');
@@ -34,20 +33,13 @@ ownerId:string
       this.age = data.age;
       })
 
-      this.data.getPetData().subscribe(pet=>{
+      this.data.getPetData(this.ownerId).subscribe(pet=>{
         this.pets=pet;
         console.log(this.pets)
-
-
-// for(var num= 0; num < this.pets.length; num++){
-// this.petsowner.push(this.pets[num])
-// }
-
         
       })
    }
    
-
    ngOnInit() {
   }
 
@@ -57,22 +49,13 @@ value:string
 
 this.data.postPetData(this.ownerId, value).subscribe(
   (pet:pet)=> {
-    console.log(pet);
+    this.pets.push(pet)
   },
   (error:any)=>console.log(error)
 )
+this.value = "";
+
   }
-
-
-
-
-
-
-
-
-
-
-
 
 ownerName:string
 ownerSurName:string

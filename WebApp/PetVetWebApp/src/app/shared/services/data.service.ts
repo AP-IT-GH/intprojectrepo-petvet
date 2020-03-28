@@ -15,8 +15,8 @@ url = "http://35.195.71.21:3000/";
     console.log(uuid)
     return this.http.get<owner>(this.proxy+this.url+"owner/"+ uuid);
   }
-  getPetData(){
-    return this.http.get(this.proxy+this.url+"pet/")
+  getPetData(uuid){
+    return this.http.get(this.proxy+this.url+"pet/owner/"+uuid)
   }
   
   
