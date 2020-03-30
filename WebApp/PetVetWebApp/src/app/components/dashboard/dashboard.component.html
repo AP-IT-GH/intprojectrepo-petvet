@@ -48,23 +48,12 @@
                 <p>Email: <strong>{{user.email}}</strong></p>
                 <p>Email Verified: <strong>{{user.emailVerified}}</strong></p>
                 <p>Age: <strong> {{age}}</strong></p>
-
-
-                <p>Aanmaken Pet:<input #box (keyup.enter)="onEnter(box.value)"> </p>
               </div>
-
-              
             </div>
           </div>
-          <app-pets></app-pets>
-          <div class="col-md-12">
-            <h1>Pets</h1>
-            
-            <select>
-              <option *ngFor="let pet of pets">{{pet.name}}</option>
-            </select>
-          </div>
+         
         </div>
+        <app-pets></app-pets>
 
       </div>
     </main>

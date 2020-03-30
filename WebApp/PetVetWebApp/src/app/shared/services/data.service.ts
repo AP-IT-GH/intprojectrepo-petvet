@@ -20,7 +20,10 @@ url = "http://35.195.71.21:3000/";
     return this.http.get<owner>(this.proxy+this.url+"vet/"+ uuid);
   }
   getPetData(uuid){
-    return this.http.get(this.proxy+this.url+"pet/owner/"+uuid)
+    return this.http.get(this.proxy+this.url+"pet/owner/"+uuid);
+  }
+  getFullPetData(petid){
+    return this.http.get(this.proxy+this.url+"petdata/pet/"+petid);
   }
   
   

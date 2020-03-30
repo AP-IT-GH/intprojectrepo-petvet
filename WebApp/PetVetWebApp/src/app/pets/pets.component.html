@@ -1,1 +1,22 @@
-<p>pets works!</p>
+
+<div class="col-md-12">
+  <h1>Pets</h1>
+
+
+  <p><strong>Aanmaken Pet:</strong><input #box (keyup.enter)="onEnter(box.value)"> </p>
+  <select  (change)="onChangePet($event.target.value)">
+    <option *ngFor="let pet of pets; let i = index" value="{{pet.petId}} ">{{i+1}}) {{pet.name}}</option>
+  </select>
+    
+  <select (change)="onChangeDate($event.target.value)">
+    <option *ngFor="let petData of petDatas[0]; let i = index" value="{{i}}">{{i+1}}) {{petData.date| date:"short" }}</option>
+  </select>
+
+
+
+
+
+
+
+
+</div>

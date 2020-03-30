@@ -12,8 +12,6 @@ import { VirtualTimeScheduler } from 'rxjs';
 })
 export class DashboardComponent implements OnInit {
  
-  pets:any=[];
-
   
 ownerId:string
   constructor(
@@ -47,31 +45,12 @@ ownerId:string
           })
         }
     });
-    
-
-
-      this.data.getPetData(this.ownerId).subscribe(pet=>{
-        this.pets=pet;
-        console.log(this.pets)
-        
-       })
    }
    
    ngOnInit() {
   }
 
-value:string
-  onEnter(value : string,){
-    this.value = value
 
-this.data.postPetData(this.ownerId, value).subscribe(
-  (pet:pet)=> {
-    this.pets.push(pet)
-  },
-  (error:any)=>console.log(error)
-)
-this.value = "";
-  }
 
 ownerName:string
 ownerSurName:string
