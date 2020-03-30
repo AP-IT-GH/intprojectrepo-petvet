@@ -27,6 +27,9 @@ float temperature;
 float vInput = 3.3; //V
 int resistor = 330; //Ohm
 
+char dataString [40];
+String receivedString = "";
+
 BLEServer* pServer = NULL;
 BLECharacteristic* pCharacteristic = NULL;
 bool deviceConnected = false;
@@ -92,9 +95,24 @@ void setup() {
 }
 
 void loop() {
-      // notify changed value
-    if (deviceConnected) {
-        delay(100);
+    // notify changed value    
+//    if (deviceConnected) {
+    std::string value = pCharacteristic->getValue();
+    
+    if(value.length() > 0){
+//        Serial.print("New value: ");
+        for (int i = 0; i < value.length(); i++){
+//          Serial.print(value[i]);
+          receivedString += value[i];
+        }
+    int received = receivedString.toInt();
+    //Serial.print("received int : ");
+    //Serial.println(received);
+    receivedString.clear();
+    delay(100);
+    
+    if(received == 1){
+    delay(100);
 /*
 // 100 measurements from each leg
     for(int i = 0; i < 100; i++){
@@ -126,24 +144,24 @@ void loop() {
         rightFront = ((-2 * pow(10,-13)) * pow(rfVoltageAvg, 4) + (1 * pow(10,-10)) * pow(rfVoltageAvg, 3) + (1 * pow(10,-6)) * pow(rfVoltageAvg, 2) - 0.0022 * rfVoltageAvg + 3.1642) / 1000;
         leftBack = ((-2 * pow(10,-13)) * pow(lbVoltageAvg, 4) + (1 * pow(10,-10)) * pow(lbVoltageAvg, 3) + (1 * pow(10,-6)) * pow(lbVoltageAvg, 2) - 0.0022 * lbVoltageAvg + 3.1642) / 1000;
         rightBack = ((-2 * pow(10,-13)) * pow(rbVoltageAvg, 4) + (1 * pow(10,-10)) * pow(rbVoltageAvg, 3) + (1 * pow(10,-6)) * pow(rbVoltageAvg, 2) - 0.0022 * rbVoltageAvg + 3.1642) / 1000;
-        temperature = random(3500, 3800) / 100;
+        temperature = random(3500, 3800) / 100.0;
 */
-        leftFront = 1.5;
-        rightFront = 1.5;
-        leftBack = 0.5;
-        rightBack = 0.5;
-        temperature = random(3500, 3800) / 100;
+        leftFront = random(150, 200) / 100.0;
+        rightFront = random(150, 200) / 100.0;
+        leftBack = random(50, 70) / 100.0;
+        rightBack = random(50, 70) / 100.0;
+        temperature = random(3500, 3800) / 100.0;
 
-        void* pkt = malloc(20);
-        memcpy(pkt,&leftFront,4);
-        memcpy(pkt+4,&rightFront,4);
-        memcpy(pkt+8,&leftBack,4);
-        memcpy(pkt+12,&rightBack,4);
-        memcpy(pkt+16,&temperature,4);
-
-        pCharacteristic->setValue((uint8_t*)pkt,20);
+        sprintf (dataString, "%.2f%.2f%.2f%.2f%.2f", leftFront, rightFront, leftBack, rightBack, temperature);
+        Serial.println(dataString);
+        pCharacteristic->setValue(dataString);
         pCharacteristic->notify();
-        delay(100); // bluetooth stack will go into congestion, if too many packets are sent, in 6 hours test i was able to go as low as 3ms
+        received = 0;
+        value.clear();
+        delay(500); // bluetooth stack will go into congestion, if too many packets are sent, in 6 hours test i was able to go as low as 3ms
+        ESP.restart();
+//    }
+    }
     }
     // disconnecting
     if (!deviceConnected && oldDeviceConnected) {
