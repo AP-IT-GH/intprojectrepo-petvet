@@ -2,8 +2,10 @@ package com.internationalproject.petvet;
 
 import androidx.appcompat.app.AppCompatActivity;
 
+import android.content.Intent;
 import android.os.Bundle;
 import android.util.Log;
+import android.view.View;
 import android.widget.ArrayAdapter;
 import android.widget.BaseAdapter;
 import android.widget.ListView;
@@ -42,7 +44,7 @@ public class MyPets extends AppCompatActivity {
         listView = findViewById(R.id.list_view);
         final BaseAdapter arrayAdapter = new ArrayAdapter(this, android.R.layout.simple_list_item_1,petnames);
         listView.setAdapter(arrayAdapter);
-        String URL = "http://10.0.2.2:3000/pet/owner/"+tempUser.GetId();
+        String URL = "http://35.195.71.21:3000/pet/owner/"+tempUser.GetId();
 
         RequestQueue requestQueue = Volley.newRequestQueue(this);
 
@@ -78,5 +80,11 @@ public class MyPets extends AppCompatActivity {
 
 
 
+    }
+
+    public void LaunchAddPetActivity(View view) {
+        Intent i = new Intent(this, AddPetActivity.class);
+        i.putExtra("user",tempUser.GetId());
+        startActivity(i);
     }
 }

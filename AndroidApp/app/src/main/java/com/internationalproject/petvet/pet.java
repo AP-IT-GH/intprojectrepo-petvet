@@ -11,4 +11,9 @@ class pet {
         this.id = id;
         this.name = name;
     }
+    public pet(String uuid, String name){
+        this.uuid = uuid;
+
+        this.name = name;
+    }
 }
