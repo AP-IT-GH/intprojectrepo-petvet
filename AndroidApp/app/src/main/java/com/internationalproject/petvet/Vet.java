@@ -9,4 +9,5 @@ public class Vet {
        name = Name;
        surName = surname;
    }
+   public Vet(){}
 }
