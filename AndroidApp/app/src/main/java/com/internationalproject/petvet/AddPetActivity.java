@@ -34,7 +34,6 @@ public class AddPetActivity extends AppCompatActivity {
     String UserId;
     String URL = "http://35.195.71.21:3000/pet/";
     EditText petnametext;
-    JSONObject jsonObject;
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);

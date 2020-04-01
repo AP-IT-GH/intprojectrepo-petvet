@@ -6,6 +6,7 @@ import android.content.Intent;
 import android.os.Bundle;
 import android.util.Log;
 import android.view.View;
+import android.widget.AdapterView;
 import android.widget.ArrayAdapter;
 import android.widget.BaseAdapter;
 import android.widget.ListView;
@@ -55,6 +56,7 @@ public class MyPets extends AppCompatActivity {
                 new Response.Listener<JSONArray>() {
                     @Override
                     public void onResponse(JSONArray response) {
+                        Log.e("response: ",response.toString());
                         Gson gson = new Gson();
                         pet[] petarray = gson.fromJson(response.toString(),pet[].class);
                         ArrayList<pet> pets = new ArrayList<pet>(Arrays.asList(petarray));
@@ -75,7 +77,15 @@ public class MyPets extends AppCompatActivity {
                 }
         );
         requestQueue.add(arrayRequest);
-
+    listView.setOnItemClickListener(new AdapterView.OnItemClickListener() {
+        @Override
+        public void onItemClick(AdapterView<?> parent, View view, int position, long id) {
+            Intent i = new Intent(MyPets.this,PetMain.class);
+            pet sendPet = tempUser.GetPets().get(position);
+            i.putExtra("pet",sendPet);
+            startActivity(i);
+        }
+    });
 
 
 
