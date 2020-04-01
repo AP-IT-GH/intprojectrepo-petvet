@@ -27,7 +27,7 @@ import java.util.Arrays;
 
 import static java.lang.Thread.sleep;
 
-public class MyPets extends AppCompatActivity {
+public class MyPetsActivity extends AppCompatActivity {
 
     private User tempUser;
      ListView listView;
@@ -76,7 +76,7 @@ public class MyPets extends AppCompatActivity {
     listView.setOnItemClickListener(new AdapterView.OnItemClickListener() {
         @Override
         public void onItemClick(AdapterView<?> parent, View view, int position, long id) {
-            Intent i = new Intent(MyPets.this,PetMain.class);
+            Intent i = new Intent(MyPetsActivity.this, MainPetActivity.class);
             Pet sendPet = tempUser.GetPets().get(position);
             i.putExtra("pet",sendPet);
             startActivity(i);

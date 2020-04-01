@@ -17,16 +17,17 @@ import com.android.volley.toolbox.StringRequest;
 import com.android.volley.toolbox.Volley;
 import com.google.gson.Gson;
 
-public class PetMain extends AppCompatActivity {
+public class MainPetActivity extends AppCompatActivity {
 
     TextView nametxt,vettxt,entriestxt;
     Button editBtn,measureBtn;
+    Pet currPet;
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_pet_main);
         Intent intent = getIntent();
-        Pet currPet = (Pet)intent.getSerializableExtra("pet");
+         currPet = (Pet)intent.getSerializableExtra("pet");
         Log.e("pet: ",currPet.name);
         nametxt = findViewById(R.id.petnameText);
         vettxt = findViewById(R.id.vetnameText);
@@ -81,6 +82,9 @@ public class PetMain extends AppCompatActivity {
     }
 
     public void LaunchEditActivity(View view) {
+        Intent i = new Intent(MainPetActivity.this, EditPetActivity.class);
+        i.putExtra("pet",currPet);
+        startActivity(i);
     }
 
     public void LaunchMeasureActivity(View view) {

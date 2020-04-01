@@ -12,9 +12,10 @@
         android:supportsRtl="true"
         android:theme="@style/AppTheme"
         android:usesCleartextTraffic="true">
-        <activity android:name=".PetMain"></activity>
+        <activity android:name=".EditPetActivity"></activity>
+        <activity android:name=".MainPetActivity" />
         <activity android:name=".AddPetActivity" />
-        <activity android:name=".MyPets" />
+        <activity android:name=".MyPetsActivity" />
         <activity android:name=".MainActivity">
             <intent-filter>
                 <action android:name="android.intent.action.MAIN" />

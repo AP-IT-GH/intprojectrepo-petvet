@@ -2,7 +2,6 @@ package com.internationalproject.petvet;
 
 import androidx.appcompat.app.AppCompatActivity;
 
-import android.app.DownloadManager;
 import android.content.Intent;
 import android.os.Bundle;
 import android.util.Log;
@@ -14,18 +13,9 @@ import com.android.volley.Request;
 import com.android.volley.RequestQueue;
 import com.android.volley.Response;
 import com.android.volley.VolleyError;
-import com.android.volley.toolbox.JsonArrayRequest;
-import com.android.volley.toolbox.JsonObjectRequest;
 import com.android.volley.toolbox.StringRequest;
 import com.android.volley.toolbox.Volley;
-import com.google.gson.Gson;
-import com.google.gson.JsonObject;
 
-import org.json.JSONArray;
-import org.json.JSONObject;
-
-import java.util.ArrayList;
-import java.util.Arrays;
 import java.util.HashMap;
 import java.util.Map;
 
@@ -48,7 +38,7 @@ public class AddPetActivity extends AppCompatActivity {
         RequestQueue requestQueue = Volley.newRequestQueue(this);
         if (petnametext.getText().toString().trim().length() > 0) {
 
-            final pet tempPet = new pet(UserId, petnametext.getText().toString());
+            final Pet tempPet = new Pet(UserId, petnametext.getText().toString());
             Log.e("name: ", petnametext.getText().toString());
             final Toast toastadded = Toast.makeText(this,"Pet has been added",Toast.LENGTH_SHORT);
             StringRequest stringRequest = new StringRequest(Request.Method.POST, URL, new Response.Listener<String>() {
@@ -76,7 +66,7 @@ public class AddPetActivity extends AppCompatActivity {
 
             };
             requestQueue.add(stringRequest);
-            Intent i = new Intent(this, MyPets.class);
+            Intent i = new Intent(this, MyPetsActivity.class);
 
             startActivity(i);
         }else {
