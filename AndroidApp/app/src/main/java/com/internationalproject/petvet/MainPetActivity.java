@@ -17,9 +17,6 @@ import com.android.volley.toolbox.StringRequest;
 import com.android.volley.toolbox.Volley;
 import com.google.gson.Gson;
 
-import java.util.HashMap;
-import java.util.Map;
-
 public class PetMain extends AppCompatActivity {
 
     TextView nametxt,vettxt,entriestxt;
@@ -29,7 +26,7 @@ public class PetMain extends AppCompatActivity {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_pet_main);
         Intent intent = getIntent();
-        pet currPet = (pet)intent.getSerializableExtra("pet");
+        Pet currPet = (Pet)intent.getSerializableExtra("pet");
         Log.e("pet: ",currPet.name);
         nametxt = findViewById(R.id.petnameText);
         vettxt = findViewById(R.id.vetnameText);

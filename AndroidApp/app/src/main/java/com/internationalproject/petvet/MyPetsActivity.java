@@ -17,15 +17,11 @@ import com.android.volley.RequestQueue;
 import com.android.volley.Response;
 import com.android.volley.VolleyError;
 import com.android.volley.toolbox.JsonArrayRequest;
-import com.android.volley.toolbox.JsonObjectRequest;
 import com.android.volley.toolbox.Volley;
 import com.google.gson.Gson;
-import com.google.gson.JsonArray;
 
 import org.json.JSONArray;
-import org.json.JSONObject;
 
-import java.io.Console;
 import java.util.ArrayList;
 import java.util.Arrays;
 
@@ -58,11 +54,11 @@ public class MyPets extends AppCompatActivity {
                     public void onResponse(JSONArray response) {
                         Log.e("response: ",response.toString());
                         Gson gson = new Gson();
-                        pet[] petarray = gson.fromJson(response.toString(),pet[].class);
-                        ArrayList<pet> pets = new ArrayList<pet>(Arrays.asList(petarray));
+                        Pet[] petarray = gson.fromJson(response.toString(), Pet[].class);
+                        ArrayList<Pet> pets = new ArrayList<Pet>(Arrays.asList(petarray));
 
                         tempUser.SetPets(pets);
-                        for (pet pet: tempUser.GetPets()
+                        for (Pet pet: tempUser.GetPets()
                         ) {
                             petnames.add(pet.name);
                         }
@@ -81,7 +77,7 @@ public class MyPets extends AppCompatActivity {
         @Override
         public void onItemClick(AdapterView<?> parent, View view, int position, long id) {
             Intent i = new Intent(MyPets.this,PetMain.class);
-            pet sendPet = tempUser.GetPets().get(position);
+            Pet sendPet = tempUser.GetPets().get(position);
             i.putExtra("pet",sendPet);
             startActivity(i);
         }
