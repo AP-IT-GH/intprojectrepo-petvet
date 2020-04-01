@@ -56,6 +56,7 @@ public class AddPetActivity extends AppCompatActivity {
             }catch (Exception e) {
                 e.printStackTrace();
             }
+
             JsonObjectRequest objectRequest = new JsonObjectRequest(
                     Request.Method.POST,
                     URL,jsonObject,
