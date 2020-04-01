@@ -16,6 +16,7 @@ import com.android.volley.Response;
 import com.android.volley.VolleyError;
 import com.android.volley.toolbox.JsonArrayRequest;
 import com.android.volley.toolbox.JsonObjectRequest;
+import com.android.volley.toolbox.StringRequest;
 import com.android.volley.toolbox.Volley;
 import com.google.gson.Gson;
 import com.google.gson.JsonObject;
@@ -25,6 +26,8 @@ import org.json.JSONObject;
 
 import java.util.ArrayList;
 import java.util.Arrays;
+import java.util.HashMap;
+import java.util.Map;
 
 public class AddPetActivity extends AppCompatActivity {
 
@@ -46,34 +49,34 @@ public class AddPetActivity extends AppCompatActivity {
         RequestQueue requestQueue = Volley.newRequestQueue(this);
         if (petnametext.getText().toString().trim().length() > 0) {
 
-            pet tempPet = new pet(UserId, petnametext.getText().toString());
+            final pet tempPet = new pet(UserId, petnametext.getText().toString());
             Log.e("name: ", petnametext.getText().toString());
-            String data = "";
-            try {
-                jsonObject = new JSONObject(data);
-                jsonObject.put("uuid", tempPet.uuid);
-                jsonObject.put("name", tempPet.name);
-            }catch (Exception e) {
-                e.printStackTrace();
-            }
+            final Toast toastadded = Toast.makeText(this,"Pet has been added",Toast.LENGTH_SHORT);
+            StringRequest stringRequest = new StringRequest(Request.Method.POST, URL, new Response.Listener<String>() {
+                @Override
+                public void onResponse(String response) {
+                    Log.e("response: ",response.toString());
 
-            JsonObjectRequest objectRequest = new JsonObjectRequest(
-                    Request.Method.POST,
-                    URL,jsonObject,
-                    new Response.Listener<JSONObject>() {
-                        @Override
-                        public void onResponse(JSONObject response) {
-                        Log.e("response: ",response.toString());
-                        }
-                    },
+                    toastadded.show();
+                }
+            },
                     new Response.ErrorListener() {
                         @Override
                         public void onErrorResponse(VolleyError error) {
                             Log.e("error: ",error.toString());
                         }
-                    }
-            );
-            requestQueue.add(objectRequest);
+                    }){
+                @Override
+                protected Map<String, String> getParams()
+                {
+                    Map<String, String> params = new HashMap<String, String>();
+                    params.put("uuid", tempPet.uuid);
+                    params.put("name", tempPet.name);
+                    return params;
+                }
+
+            };
+            requestQueue.add(stringRequest);
             Intent i = new Intent(this, MyPets.class);
 
             startActivity(i);
