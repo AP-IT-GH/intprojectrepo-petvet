@@ -30,17 +30,17 @@ url = "http://35.195.71.21:3000/";
   
   PostPersonData(uuid, name, age, surName, vet ){
     var postOwnerJsonstring;
-
+    var objectpet
     if(vet){
       var person = "vet/"
-console.log("its a vet")
+console.log("vet")
        postOwnerJsonstring = "{\"uuid\":  \"" + uuid + "\","
                         + " \"name\":  \"" + name+ "\", "
                         + " \"surName\":  \"" + surName+ "\"}";
     } 
     if(!vet){
       var person = "owner/"
-      console.log("its an owner")
+      console.log("owner")
        postOwnerJsonstring = "{\"uuid\":  \"" + uuid + "\","
                         + " \"name\":  \"" + name+ "\", "
                         + " \"age\":  \"" + age + "\","
@@ -55,7 +55,7 @@ console.log("its a vet")
       headers: new HttpHeaders({
         'Content-Type': 'application/json'
       })
-    } ).subscribe();
+    } );
   }
   
   postPetData(uuid, name){
@@ -64,13 +64,13 @@ console.log("its a vet")
                   + " \"name\":  \"" + name+ "\"}";
 
     var jsonData = JSON.parse(postPetString);
+
     console.log(jsonData)
     return this.http.post<pet>(this.proxy+this.url+"pet/", jsonData,{
        headers: new HttpHeaders({
          'Content-Type': 'application/json'
        })
      } );
-    
   }
 }
 

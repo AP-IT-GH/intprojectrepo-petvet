@@ -1,21 +1,91 @@
+<script src="node_modules/chart.js/Chart.min.js"></script>
+<script src="node_modules/angular-chart.js/dist/angular-chart.min.js"></script>
 
 <div class="col-md-12">
-  <h1>Pets</h1>
-
-
+  <div class="pt-3 pb-2 mb-3 border-bottom">
+    <h1 class="h2">Pet</h1>
+  </div>
   <p><strong>Aanmaken Pet:</strong><input #box (keyup.enter)="onEnter(box.value)"> </p>
-  <select  (change)="onChangePet($event.target.value)">
-    <option *ngFor="let pet of pets; let i = index" value="{{pet.petId}} ">{{i+1}}) {{pet.name}}</option>
-  </select>
+
+<!-- 
+  <mat-expansion-panel *ngFor="let pet of pets; let i = index">
+    <mat-expansion-panel-header >
+      <mat-panel-title>
+        <strong>{{pet.name}}</strong>
+      </mat-panel-title>
+      <mat-panel-description>
+        Last recieved Data: 
+      </mat-panel-description>
+
+    </mat-expansion-panel-header>
+    <p>Primary content</p>
+  </mat-expansion-panel>
+   -->
+  
+  <mat-expansion-panel *ngFor="let pet of TestData; let i = index">
+    <mat-expansion-panel-header >
+      <mat-panel-title>
+        <strong>{{i + 1}}. {{pet.name}}</strong>
+      </mat-panel-title>
+      <mat-panel-description>
+        Vet: {{pet.vet_uuid}}
+        <!-- Last recieved Data: {{pet.petData[0].date | date:"short"}} -->
+      </mat-panel-description>
+
+    </mat-expansion-panel-header>
+    <select [(ngModel)]="this[i]">
+      <option *ngFor="let data of pet.petData; let i = index" value="{{i}}"> {{data.date | dateAgo}}</option>
+      
+    </select>
+
+    <div>
+      <ejs-chart [primaryXAxis]= 'xAxis' [primaryYAxis]= 'yAxis'[legendSettings]='legend' [tooltip]='tooltipSettings'>
+        <e-series-collection>
+          <!-- <e-series type='Line' [dataSource]="pet.petData[this[i]]" xName='date' yName='weight'></e-series> -->
+          <e-series type='Line' [dataSource]="pet.petData" xName='date' yName='frontRight' name="RightLeg" [marker]="markerSettings"></e-series>
+          <e-series type='Line' [dataSource]="pet.petData" xName='date' yName='frontLeft' name="LeftLeg" [marker]="markerSettings"></e-series>
+
+          <e-series type='Line' [dataSource]="pet.petData" xName='date' yName='backRight' name="backRight" [marker]="markerSettings"></e-series>
+          <e-series type='Line' [dataSource]="pet.petData" xName='date' yName='backLeft' name="backLeft" [marker]="markerSettings"></e-series>
+         
+          
+        </e-series-collection>
+      </ejs-chart>
+      </div>
+      
+      <div *ngIf="this[i] != null">
+      <p>value: {{this[i]}}</p>
+      <p >  Temp:    {{pet.petData[this[i]].temperature}}</p>
+      <p> weight {{pet.petData[this[i]].frontRight}}</p>
+
+      
+    </div>
+  </mat-expansion-panel>
+
+
+  <!-- <div>
+    <select  (change)="onChangePet($event.target.value)">
+      <option *ngFor="let pet of pets; let i = index" value="{{pet.petId}} ">{{i+1}}) {{pet.name}}</option>
+    </select>
     
   <select (change)="onChangeDate($event.target.value)">
     <option *ngFor="let petData of petDatas[0]; let i = index" value="{{i}}">{{i+1}}) {{petData.date| date:"short" }}</option>
-  </select>
+  </select> -->
 
+  <!-- <ng2-flatpickr ></ng2-flatpickr> -->
+  <!-- <ng2-flatpickr [setDate]="randomDateObject" formControlName="formControlName"></ng2-flatpickr> -->
+  <!-- </div>
 
+  <p>Deze pet heeft als vet {{vet}}</p>
+  <p *ngIf="">geen vet</p>
 
+  <li>{{frontLeft}}</li>
+  <li>{{frontRight}}</li>
+  <li>{{backLeft}}</li>
+  <li>{{backRight}}</li>
+  <li>{{temperature}}</li>
 
-
+ -->
 
 
 

@@ -1,6 +1,14 @@
 import { BrowserModule } from '@angular/platform-browser';
 import { NgModule } from '@angular/core';
 import { HttpClientModule } from "@angular/common/http";
+import { Ng2FlatpickrModule } from 'ng2-flatpickr';
+import { MatExpansionModule } from '@angular/material/expansion'
+import { BrowserAnimationsModule } from '@angular/platform-browser/animations';
+import { FormsModule } from '@angular/forms';
+import { CommonModule } from '@angular/common';  
+import { ChartModule, LineSeriesService, CategoryService, LegendService, DataLabelService, TooltipService } from '@syncfusion/ej2-angular-charts'
+
+
 
 // Reactive Form
 import { ReactiveFormsModule } from "@angular/forms";
@@ -22,13 +30,14 @@ import { AngularFireAuthModule } from "@angular/fire/auth";
 import { AngularFirestoreModule } from '@angular/fire/firestore';
 import { environment } from '../environments/environment';
 
-
 // Auth service
 import { AuthService } from "./shared/services/auth.service";
 import { PetsComponent } from './pets/pets.component';
-
+import { DateAgoPipe } from './pipes/date-ago.pipe';
+import { DataService } from './shared/services/data.service';
 
 @NgModule({
+  exports:[],
   declarations: [
     AppComponent,
     SignInComponent,
@@ -36,7 +45,8 @@ import { PetsComponent } from './pets/pets.component';
     DashboardComponent,
     ForgotPasswordComponent,
     VerifyEmailComponent,
-    PetsComponent
+    PetsComponent,
+    DateAgoPipe
   ],
   imports: [
     BrowserModule,
@@ -45,9 +55,16 @@ import { PetsComponent } from './pets/pets.component';
     AngularFireAuthModule,
     AngularFirestoreModule,
     ReactiveFormsModule,
-    HttpClientModule
+    HttpClientModule,
+    Ng2FlatpickrModule,
+    MatExpansionModule,
+    BrowserAnimationsModule,
+    FormsModule,
+    CommonModule,
+    ChartModule
+
   ],
-  providers: [AuthService],
+  providers: [AuthService, LineSeriesService, DataService,CategoryService, LegendService, DataLabelService, TooltipService],
   bootstrap: [AppComponent]
 })
 
