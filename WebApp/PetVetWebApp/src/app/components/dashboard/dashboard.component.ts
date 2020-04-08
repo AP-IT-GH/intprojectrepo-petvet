@@ -11,48 +11,45 @@ import { VirtualTimeScheduler } from 'rxjs';
   styleUrls: ['./dashboard.component.css']
 })
 export class DashboardComponent implements OnInit {
- 
-  
-ownerId:string
+
+
+  ownerId: string
   constructor(
     public authService: AuthService,
     public router: Router,
     public ngZone: NgZone,
-    private data : DataService,
-      ) 
-    {
-      
+    private data: DataService,
+  ) {
+
     let owner = localStorage.getItem('user');
     var ownerJson = JSON.parse(owner);
     var isVet = false;
-    
+
     this.ownerId = ownerJson.uid;
 
-    this.data.getOwnerData(ownerJson.uid).subscribe((data) =>
-    {
+    this.data.getOwnerData(ownerJson.uid).subscribe((data) => {
       console.log(data)
       this.ownerName = data.name;
       this.ownerSurName = data.surName;
-       this.age = data.age;
-    }, (error) =>
-    {
-        console.log(error);
-        if( error.status = 404){
-          isVet = true;
-          this.data.getVetData(ownerJson.uid).subscribe((vet)=>{
-            this.ownerName = vet.name;
-            this.ownerSurName = vet.surName;
-          })
-        }
+      this.age = data.age;
+    }, (error) => {
+      console.log(error);
+      if (error.status = 404) {
+        isVet = true;
+        this.data.getVetData(ownerJson.uid).subscribe((vet) => {
+          this.ownerName = vet.name;
+          this.ownerSurName = vet.surName;
+        })
+      }
     });
-   }
-   
-   ngOnInit() {
+  }
+
+  ngOnInit() {
   }
 
 
 
-ownerName:string
-ownerSurName:string
-age:number;
+  ownerName: string
+  ownerSurName: string
+  age: number;
 }

@@ -5,7 +5,7 @@ import { Ng2FlatpickrModule } from 'ng2-flatpickr';
 import { MatExpansionModule } from '@angular/material/expansion'
 import { BrowserAnimationsModule } from '@angular/platform-browser/animations';
 import { FormsModule } from '@angular/forms';
-import { CommonModule } from '@angular/common';  
+import { CommonModule } from '@angular/common';
 import { ChartModule, LineSeriesService, CategoryService, LegendService, DataLabelService, TooltipService } from '@syncfusion/ej2-angular-charts'
 
 
@@ -37,7 +37,7 @@ import { DateAgoPipe } from './pipes/date-ago.pipe';
 import { DataService } from './shared/services/data.service';
 
 @NgModule({
-  exports:[],
+  exports: [],
   declarations: [
     AppComponent,
     SignInComponent,
@@ -64,7 +64,7 @@ import { DataService } from './shared/services/data.service';
     ChartModule
 
   ],
-  providers: [AuthService, LineSeriesService, DataService,CategoryService, LegendService, DataLabelService, TooltipService],
+  providers: [AuthService, LineSeriesService, DataService, CategoryService, LegendService, DataLabelService, TooltipService],
   bootstrap: [AppComponent]
 })
 

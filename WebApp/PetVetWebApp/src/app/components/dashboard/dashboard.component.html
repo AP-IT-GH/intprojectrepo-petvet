@@ -1,7 +1,9 @@
 <!-- Top navigation -->
 <nav class="navbar navbar-dark fixed-top bg-dark flex-md-nowrap p-0 shadow">
   <a class="navbar-brand col-sm-3 col-md-2 mr-0" routerLink="/dashboard">
-    <img class="brand-logo" src="https://cdn.discordapp.com/attachments/534108724785053702/692356459530551316/PetvetCropped.png" height="40px">
+    <img class="brand-logo"
+      src="https://cdn.discordapp.com/attachments/534108724785053702/692356459530551316/PetvetCropped.png"
+      height="40px">
     <span class="dasboard-text">Dashboard</span>
   </a>
 </nav>
@@ -33,8 +35,8 @@
       <div class="inner-adjust">
 
         <div class="pt-3 pb-2 mb-3 border-bottom">
-          <!-- <h1 class="h2">WelcomeL</h1> -->
-          <!-- <h3>Hello: <strong>{{ownerSurName}} {{(ownerName) ? ownerName : 'User'}}</strong></h3> -->
+          <h1 class="h2">Welcome</h1>
+          <h3>Hello: <strong>{{ownerSurName}} {{(ownerName) ? ownerName : 'User'}}</strong></h3>
         </div>
         <!-- Show user data when logged in -->
         <div class="row" *ngIf="authService.userData as user">
@@ -52,7 +54,7 @@
               </div>
             </div> -->
           </div>
-         
+
         </div>
         <app-pets></app-pets>
 
