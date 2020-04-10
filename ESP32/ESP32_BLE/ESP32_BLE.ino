@@ -18,6 +18,10 @@ float sensorVoltageLF[100];
 float sensorVoltageRF[100];
 float sensorVoltageLB[100];
 float sensorVoltageRB[100];
+float lfVoltageSum;
+float rfVoltageSum;
+float lbVoltageSum;
+float rbVoltageSum;
 
 float leftFront;
 float rightFront;
@@ -98,24 +102,22 @@ void loop() {
     // notify changed value    
 //    if (deviceConnected) {
     std::string value = pCharacteristic->getValue();
-    
     if(value.length() > 0){
-//        Serial.print("New value: ");
-        for (int i = 0; i < value.length(); i++){
-//          Serial.print(value[i]);
-          receivedString += value[i];
-        }
+      for (int i = 0; i < value.length(); i++)
+      {
+        receivedString += value[i];
+      }
+      
     int received = receivedString.toInt();
-    //Serial.print("received int : ");
-    //Serial.println(received);
-    receivedString.clear();
     delay(100);
+    receivedString.clear();
+    value.clear();
     
     if(received == 1){
     delay(100);
-/*
-// 100 measurements from each leg
-    for(int i = 0; i < 100; i++){
+
+// 100 measurements from each leg, with 10ms delay the measuring will last about 1 second
+    for(int i = 0; i < 100; i++){        
         sensorValueLF = (analogRead(lfPin) * vInput) / 4095;
         sensorValueRF = (analogRead(rfPin) * vInput) / 4095;
         sensorValueLB = (analogRead(lbPin) * vInput) / 4095;
@@ -125,39 +127,55 @@ void loop() {
         sensorVoltageRF[i] = vInput - sensorValueRF;
         sensorVoltageLB[i] = vInput - sensorValueLB;
         sensorVoltageRB[i] = vInput - sensorValueRB;
+        delay(10);       
+        /*
+        //for testing
+        sensorVoltageLF[i] = random(140, 160) / 100.0;
+        sensorVoltageRF[i] = random(140, 160) / 100.0;
+        sensorVoltageLB[i] = random(220, 250) / 100.0;
+        sensorVoltageRB[i] = random(220, 250) / 100.0;
+        */
         }
 // Sum measurements between 30-70
-    for int k = 30; k < 70; k++){
-        float lfVoltageSum += sensorVoltageLF[k];
-        float rfVoltageSum += sensorVoltageRF[k];
-        float lbVoltageSum += sensorVoltageLB[k];
-        float rbVoltageSum += sensorVoltageRB[k];
+    for (int k = 30; k < 70; k++){
+        lfVoltageSum += sensorVoltageLF[k];
+        rfVoltageSum += sensorVoltageRF[k];
+        lbVoltageSum += sensorVoltageLB[k];
+        rbVoltageSum += sensorVoltageRB[k];
         }
 // Calculating average voltage of the measurements
-        float lfVoltageAvg = lfVoltageSum / 40;
-        float rfVoltageAvg = rfVoltageSum / 40;
-        float lbVoltageAvg = lbVoltageSum / 40;
-        float rbVoltageAvg = rbVoltageSum / 40;
+        float lfVoltageAvg = lfVoltageSum / 40.0;
+        float rfVoltageAvg = rfVoltageSum / 40.0;
+        float lbVoltageAvg = lbVoltageSum / 40.0;
+        float rbVoltageAvg = rbVoltageSum / 40.0;
 
 // Converting measured average voltages to kg, temperature is just a random number between 35-38
-        leftFront = ((-2 * pow(10,-13)) * pow(lfVoltageAvg, 4) + (1 * pow(10,-10)) * pow(lfVoltageAvg, 3) + (1 * pow(10,-6)) * pow(lfVoltageAvg, 2) - 0.0022 * lfVoltageAvg + 3.1642) / 1000;
-        rightFront = ((-2 * pow(10,-13)) * pow(rfVoltageAvg, 4) + (1 * pow(10,-10)) * pow(rfVoltageAvg, 3) + (1 * pow(10,-6)) * pow(rfVoltageAvg, 2) - 0.0022 * rfVoltageAvg + 3.1642) / 1000;
-        leftBack = ((-2 * pow(10,-13)) * pow(lbVoltageAvg, 4) + (1 * pow(10,-10)) * pow(lbVoltageAvg, 3) + (1 * pow(10,-6)) * pow(lbVoltageAvg, 2) - 0.0022 * lbVoltageAvg + 3.1642) / 1000;
-        rightBack = ((-2 * pow(10,-13)) * pow(rbVoltageAvg, 4) + (1 * pow(10,-10)) * pow(rbVoltageAvg, 3) + (1 * pow(10,-6)) * pow(rbVoltageAvg, 2) - 0.0022 * rbVoltageAvg + 3.1642) / 1000;
+        leftFront = (-444.67 * pow(lfVoltageAvg, 4) + 4066.1 * pow(lfVoltageAvg, 3) - 13303 * pow(lfVoltageAvg, 2) + 17458 * lfVoltageAvg - 6327.5) / 1000.0;
+        rightFront = (-444.67 * pow(rfVoltageAvg, 4) + 4066.1 * pow(rfVoltageAvg, 3) - 13303 * pow(rfVoltageAvg, 2) + 17458 * rfVoltageAvg - 6327.5) / 1000.0;
+        leftBack = (-444.67 * pow(lbVoltageAvg, 4) + 4066.1 * pow(lbVoltageAvg, 3) - 13303 * pow(lbVoltageAvg, 2) + 17458 * lbVoltageAvg - 6327.5) / 1000.0;
+        rightBack = (-444.67 * pow(rbVoltageAvg, 4) + 4066.1 * pow(rbVoltageAvg, 3) - 13303 * pow(rbVoltageAvg, 2) + 17458 * rbVoltageAvg - 6327.5) / 1000.0;
         temperature = random(3500, 3800) / 100.0;
-*/
-        leftFront = random(150, 200) / 100.0;
-        rightFront = random(150, 200) / 100.0;
-        leftBack = random(50, 70) / 100.0;
-        rightBack = random(50, 70) / 100.0;
-        temperature = random(3500, 3800) / 100.0;
+
+        Serial.print(leftFront);
+        Serial.print(" , ");
+        Serial.print(rightFront);
+        Serial.print(" , ");
+        Serial.print(leftBack);
+        Serial.print(" , ");
+        Serial.println(rightBack);
 
         sprintf (dataString, "%.2f%.2f%.2f%.2f%.2f", leftFront, rightFront, leftBack, rightBack, temperature);
         Serial.println(dataString);
         pCharacteristic->setValue(dataString);
         pCharacteristic->notify();
-        received = 0;
+        lfVoltageSum = 0;
+        rfVoltageSum = 0;
+        lbVoltageSum = 0;
+        rbVoltageSum = 0;
+        receivedString.clear();
         value.clear();
+        received = 0;
+
         delay(500); // bluetooth stack will go into congestion, if too many packets are sent, in 6 hours test i was able to go as low as 3ms
         ESP.restart();
 //    }
