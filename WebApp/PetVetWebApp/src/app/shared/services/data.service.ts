@@ -25,67 +25,80 @@ export class DataService {
     return this.http.get(this.proxy + this.url + "petdata/pet/" + petid);
   }
   getAllvet() {
-    return this.http.get(this.proxy + this.url + "/vet/")
+    return this.http.get(this.proxy + this.url + "vet/")
+  }
+  getAllOwner() {
+    return this.http.get(this.proxy + this.url + "/owner/")
+  }
+  getpetsfromvet(id) {
+    return this.http.get(this.proxy + this.url + "pet/vet/" + id)
+
   }
 
-
-
   PostPersonData(uuid, name, age, surName, vet) {
-    var postOwnerJsonstring;
-    var objectpet
+    var postpersonJson;
     if (vet) {
       var person = "vet/"
-      console.log("vet")
-      postOwnerJsonstring = "{\"uuid\":  \"" + uuid + "\","
-        + " \"name\":  \"" + name + "\", "
-        + " \"surName\":  \"" + surName + "\"}";
+      postpersonJson = {
+        uuid: uuid,
+        name: name,
+        surName: surName
+      }
     }
     if (!vet) {
       var person = "owner/"
-      console.log("owner")
-      postOwnerJsonstring = "{\"uuid\":  \"" + uuid + "\","
-        + " \"name\":  \"" + name + "\", "
-        + " \"age\":  \"" + age + "\","
-        + " \"surName\":  \"" + surName + "\"}";
+      postpersonJson = {
+        uuid: uuid,
+        name: name,
+        age: age,
+        surName: surName
+      }
     }
-
-
-    var jsonPostOwner = JSON.parse(postOwnerJsonstring);
-    console.log(jsonPostOwner);
-    console.log(this.proxy + this.url + person)
-    this.http.post<owner>(this.proxy + this.url + person, jsonPostOwner, {
+    this.http.post<owner>(this.proxy + this.url + person, postpersonJson, {
       headers: new HttpHeaders({
         'Content-Type': 'application/json'
       })
-    });
+    }).subscribe((error => {
+      console.log(error)
+    }));
   }
 
   postPetData(uuid, name) {
-    const postPetString = "{\"uuid\":  \"" + uuid + "\","
-      + " \"name\":  \"" + name + "\"}";
-    var jsonData = JSON.parse(postPetString);
-    console.log(jsonData)
-    return this.http.post<pet>(this.proxy + this.url + "pet/", jsonData, {
+    var postPetJson = {
+      uuid: uuid,
+      name: name
+    }
+    return this.http.post<pet>(this.proxy + this.url + "pet/", postPetJson, {
       headers: new HttpHeaders({
         'Content-Type': 'application/json'
       })
     });
   }
 
-  PostPetVet(vetid, petid, name){
-    var postpetvet = "{\"vet_uuid\":  \"" + vetid + "\","
-    + " \"name\":  \"" + name +"\" }";
-    var jsonpostvet = JSON.parse(postpetvet)
-    console.log(jsonpostvet )
+  PostPetVet(vetid, petid, name) {
+ 
+    var postpetvetJson = {
+      vet_uuid: vetid,
+      name: name
+    }
 
-    return this.http.put(this.proxy+this.url+ "pet/" + petid, jsonpostvet,{
+    return this.http.put(this.proxy + this.url + "pet/" + petid, postpetvetJson, {
       headers: new HttpHeaders({
         'Content-Type': 'application/json'
-      }) 
+      })
     });
-    // this.http.post(this.proxy + this.url+"pet/"+ petid, )
+  }
+
+  deletePet(petId) {
+    return this.http.delete(this.proxy+this.url + "pet/"+ petId)
+  }
+  deletePetData(dataId) {
+     return this.http.delete(this.proxy + this.url + "petData/" + dataId)
   }
 }
+
+
+
 
 export interface owner {
   uuid: string;

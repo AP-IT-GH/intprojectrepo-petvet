@@ -32,7 +32,8 @@ export class AuthService {
         localStorage.setItem('user', null);
         JSON.parse(localStorage.getItem('user'));
       }
-    })
+    }, (error) => {
+      console.log(error)})
   }
 
   // Sign in with email/password
@@ -55,12 +56,13 @@ export class AuthService {
         /* Call the SendVerificaitonMail() function when new user sign 
         up and returns promise */
         this.SendVerificationMail();
-        this.SetUserData(result.user);
+        // this.SetUserData(result.user);
         console.log(vet)
         console.log(name + " - " + surName + " - " + vet + " - " + result.user.uid);
-this.getData.PostPersonData(result.user.uid, name, age, surName, vet)
+        this.getData.PostPersonData(result.user.uid, name, age, surName, vet)
       }).catch((error) => {
         window.alert(error.message)
+        console.log(error)
       })
   }
 
