@@ -1,5 +1,7 @@
 @import 'https://use.fontawesome.com/releases/v5.5.0/css/all.css';
 
+
+
 * {
   -webkit-box-sizing: border-box;
   -moz-box-sizing: border-box;
@@ -225,12 +227,12 @@ input:-moz-placeholder {
   font-size: 14px;
   font-weight: 400;
   display: block;
-  color: rgba(255, 255, 255, .6);
+  color: rgba(36, 31, 31, 0.6);
 }
 
 .redirectToLogin .redirect {
   cursor: pointer;
-  color: #ffffff;
+  color: #2c2c2c;
   text-decoration: underline;
 }
 

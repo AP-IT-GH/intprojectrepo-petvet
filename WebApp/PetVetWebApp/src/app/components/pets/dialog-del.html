@@ -1,0 +1,34 @@
+<div *ngIf="DelPostValue == 1"  class=" pb-2  border-bottom">
+  <h1 mat-dialog-title class=" pb-2 mb-3 border-bottom" >Are you sure? </h1>
+  <div mat-dialog-content>
+    <p>After pressing 'yes' your pet will be deleted and the data will be gone!</p>
+    <p> Pet: <strong>{{petName}}</strong></p>
+  </div>
+  <div mat-dialog-actions >
+    <button mat-button class=" accept" (click)="onYesClick(1)" style="margin: 5px;">Yes, i'm sure</button>
+    <button mat-button class=" Delete" (click)="onNoClick()" style="margin: 5px;">No Thanks</button>
+  </div>
+  
+</div>
+<div *ngIf="DelPostValue == 2" class=" pb-2  border-bottom">
+  <h1 mat-dialog-title class="pb-2  border-bottom" >Update Pet</h1>
+  <div mat-dialog-content>
+    <p>Give another name to your pet or change the vet</p>
+    <p>you are making changes to <strong>{{petName}}</strong></p> 
+    <div>
+      <mat-label>Pet name: </mat-label>
+      <input matInput [(ngModel)]="data.petNameret" style="width: 90%;">
+    </div>
+    <div>
+      choose a vet:
+      <select (change)="onChangePet($event.target.value)" class=" uk-margin-bottom" style="width: 90%;">
+        <option disabled selected hidden>Choose a Vet</option>
+        <option *ngFor=" let vet of allVets" value="{{vet.uuid}}">{{vet.surName}} {{vet.name}}</option>
+      </select>
+    </div>
+  </div>
+  <div mat-dialog-actions >
+    <button mat-button class=" accept" (click)="onYesClick(2)" style="margin: 5px;">Yes, i'm sure</button>
+    <button mat-button class=" Delete" (click)="onNoClick()" style="margin: 5px;">No Thanks</button>
+  </div>  
+</div>

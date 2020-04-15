@@ -30,12 +30,20 @@
       </div>
     </nav>
 
+
     <!-- Main content -->
-    <main role="main" class="col-md-9 ml-sm-auto col-lg-10 px-4">
-      <div class="inner-adjust">
+    <main role="main" class="col-md-9 ml-sm-auto col-lg-10 px-4" >
+      <div *ngIf="!gotData" style=" padding-top: 100px;">
+        <div *ngIf="!noData">
+        <app-loading></app-loading>
+        </div>
+      </div>
+      <div *ngIf="noData">
+        <h2>No Data</h2>
+      </div>
+      <div class="inner-adjust" *ngIf="gotData">
 
         <div class="pt-3 pb-2 mb-3 border-bottom">
-          <h1 class="h2">Welcome</h1>
           <h3>Hello: <strong>{{ownerSurName}} {{(ownerName) ? ownerName : 'User'}}</strong></h3>
         </div>
         <!-- Show user data when logged in -->
@@ -56,8 +64,12 @@
           </div>
 
         </div>
+        <div *ngIf="!isVet">
         <app-pets></app-pets>
-
+        </div>
+        <div *ngIf="isVet">
+          <app-vets></app-vets>
+        </div>
       </div>
     </main>
 

@@ -2,7 +2,6 @@ import { Component, OnInit, NgZone } from '@angular/core';
 import { AuthService } from "../../shared/services/auth.service";
 import { Router } from "@angular/router";
 import { DataService, pet } from 'src/app/shared/services/data.service';
-import { VirtualTimeScheduler } from 'rxjs';
 
 
 @Component({
@@ -12,7 +11,9 @@ import { VirtualTimeScheduler } from 'rxjs';
 })
 export class DashboardComponent implements OnInit {
 
-
+  isVet: boolean;
+  gotData: boolean = false;
+  noData: boolean = false;
   ownerId: string
   constructor(
     public authService: AuthService,
@@ -23,33 +24,43 @@ export class DashboardComponent implements OnInit {
 
     let owner = localStorage.getItem('user');
     var ownerJson = JSON.parse(owner);
-    var isVet = false;
+
+
 
     this.ownerId = ownerJson.uid;
 
     this.data.getOwnerData(ownerJson.uid).subscribe((data) => {
-      console.log(data)
       this.ownerName = data.name;
       this.ownerSurName = data.surName;
       this.age = data.age;
+      this.isVet = false;
+      this.gotData = true
+      this.noData = false;
+
     }, (error) => {
-      console.log(error);
       if (error.status = 404) {
-        isVet = true;
+
+        this.isVet = true;
         this.data.getVetData(ownerJson.uid).subscribe((vet) => {
           this.ownerName = vet.name;
           this.ownerSurName = vet.surName;
-        })
+          this.gotData = true
+          this.noData = false;
+        }, (error) => {
+          console.log(error)
+          this.noData = true;
+        }
+        )}
+    })
+    
+  }
+
+      ngOnInit() {
       }
-    });
-  }
-
-  ngOnInit() {
-  }
 
 
 
-  ownerName: string
-  ownerSurName: string
-  age: number;
-}
+      ownerName: string
+      ownerSurName: string
+      age: number;
+    }
