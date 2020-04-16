@@ -32,7 +32,7 @@ float vInput = 3.3; //V
 int resistor = 330; //Ohm
 
 char dataString [40];
-String receivedString = "";
+String receivedString;
 
 BLEServer* pServer = NULL;
 BLECharacteristic* pCharacteristic = NULL;
@@ -100,24 +100,26 @@ void setup() {
 
 void loop() {
     // notify changed value    
-//    if (deviceConnected) {
+    if (deviceConnected) {
+    
     std::string value = pCharacteristic->getValue();
+    
     if(value.length() > 0){
       for (int i = 0; i < value.length(); i++)
       {
         receivedString += value[i];
+        Serial.println(value[i]);
       }
       
     int received = receivedString.toInt();
     delay(100);
     receivedString.clear();
-    value.clear();
-    
     if(received == 1){
     delay(100);
 
 // 100 measurements from each leg, with 10ms delay the measuring will last about 1 second
-    for(int i = 0; i < 100; i++){        
+    for(int i = 0; i < 100; i++){  
+      /*      
         sensorValueLF = (analogRead(lfPin) * vInput) / 4095;
         sensorValueRF = (analogRead(rfPin) * vInput) / 4095;
         sensorValueLB = (analogRead(lbPin) * vInput) / 4095;
@@ -128,13 +130,14 @@ void loop() {
         sensorVoltageLB[i] = vInput - sensorValueLB;
         sensorVoltageRB[i] = vInput - sensorValueRB;
         delay(10);       
-        /*
-        //for testing
-        sensorVoltageLF[i] = random(140, 160) / 100.0;
-        sensorVoltageRF[i] = random(140, 160) / 100.0;
-        sensorVoltageLB[i] = random(220, 250) / 100.0;
-        sensorVoltageRB[i] = random(220, 250) / 100.0;
-        */
+      */
+        
+        //generating "voltage" for testing
+        sensorVoltageLF[i] = random(17, 20) / 100.0;  //about 960-1160g
+        sensorVoltageRF[i] = random(43, 53) / 100.0;  //about 960-1160g
+        sensorVoltageLB[i] = random(30, 37) / 100.0;  //about 570-780g
+        sensorVoltageRB[i] = random(37, 47) / 100.0;  //about 570-780g
+        
         }
 // Sum measurements between 30-70
     for (int k = 30; k < 70; k++){
@@ -150,10 +153,10 @@ void loop() {
         float rbVoltageAvg = rbVoltageSum / 40.0;
 
 // Converting measured average voltages to kg, temperature is just a random number between 35-38
-        leftFront = (-444.67 * pow(lfVoltageAvg, 4) + 4066.1 * pow(lfVoltageAvg, 3) - 13303 * pow(lfVoltageAvg, 2) + 17458 * lfVoltageAvg - 6327.5) / 1000.0;
-        rightFront = (-444.67 * pow(rfVoltageAvg, 4) + 4066.1 * pow(rfVoltageAvg, 3) - 13303 * pow(rfVoltageAvg, 2) + 17458 * rfVoltageAvg - 6327.5) / 1000.0;
-        leftBack = (-444.67 * pow(lbVoltageAvg, 4) + 4066.1 * pow(lbVoltageAvg, 3) - 13303 * pow(lbVoltageAvg, 2) + 17458 * lbVoltageAvg - 6327.5) / 1000.0;
-        rightBack = (-444.67 * pow(rbVoltageAvg, 4) + 4066.1 * pow(rbVoltageAvg, 3) - 13303 * pow(rbVoltageAvg, 2) + 17458 * rbVoltageAvg - 6327.5) / 1000.0;
+        leftFront = (3786.5 * pow(lfVoltageAvg, 2) - 5383.6 * lfVoltageAvg + 1925.7) / 1000.0;
+        rightFront = (1057.7 * pow(rfVoltageAvg, 2) - 3230.4 * rfVoltageAvg + 2381.8) / 1000.0;
+        leftBack = (1832.9 * pow(lbVoltageAvg, 2) - 3493.3 * lbVoltageAvg + 1657.1) / 1000.0;
+        rightBack = (1124.4 * pow(rbVoltageAvg, 2) - 2699.0 * rbVoltageAvg + 1546.7) / 1000.0;
         temperature = random(3500, 3800) / 100.0;
 
         Serial.print(leftFront);
@@ -164,21 +167,22 @@ void loop() {
         Serial.print(" , ");
         Serial.println(rightBack);
 
-        sprintf (dataString, "%.2f%.2f%.2f%.2f%.2f", leftFront, rightFront, leftBack, rightBack, temperature);
+        sprintf (dataString, "%.2f%.2f%.2f%.2f%.1f", leftFront, rightFront, leftBack, rightBack, temperature);
         Serial.println(dataString);
         pCharacteristic->setValue(dataString);
         pCharacteristic->notify();
+        delay(100);
         lfVoltageSum = 0;
         rfVoltageSum = 0;
         lbVoltageSum = 0;
         rbVoltageSum = 0;
         receivedString.clear();
-        value.clear();
         received = 0;
-
+        value.clear();
+        pCharacteristic->setValue(value);
         delay(500); // bluetooth stack will go into congestion, if too many packets are sent, in 6 hours test i was able to go as low as 3ms
-        ESP.restart();
-//    }
+//        ESP.restart();
+    }
     }
     }
     // disconnecting
