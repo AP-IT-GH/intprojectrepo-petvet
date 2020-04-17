@@ -15,7 +15,6 @@ class Pet implements Serializable {
     }
     public Pet(String uuid, String name){
         this.uuid = uuid;
-
         this.name = name;
     }
     public Pet(String uuid, int id, String name,String vetid){

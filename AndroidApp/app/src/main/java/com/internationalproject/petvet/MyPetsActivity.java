@@ -36,7 +36,7 @@ public class MyPetsActivity extends AppCompatActivity {
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_my_pets);
-        tempUser = new User("rdPZmdidJ3YmTgVSaKlxinoWFVK2");
+        tempUser = new User("Kh9WayoF9CWk3ICkZHn1GtNW0Ny2");
         petnames = new ArrayList<>();
         listView = findViewById(R.id.list_view);
         final BaseAdapter arrayAdapter = new ArrayAdapter(this, android.R.layout.simple_list_item_1,petnames);

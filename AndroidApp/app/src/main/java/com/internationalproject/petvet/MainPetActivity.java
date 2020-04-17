@@ -17,6 +17,8 @@ import com.android.volley.toolbox.StringRequest;
 import com.android.volley.toolbox.Volley;
 import com.google.gson.Gson;
 
+import java.text.SimpleDateFormat;
+
 public class MainPetActivity extends AppCompatActivity {
 
     TextView nametxt,vettxt,entriestxt;
@@ -27,7 +29,7 @@ public class MainPetActivity extends AppCompatActivity {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_pet_main);
         Intent intent = getIntent();
-         currPet = (Pet)intent.getSerializableExtra("pet");
+        currPet = (Pet)intent.getSerializableExtra("pet");
         Log.e("pet: ",currPet.name);
         nametxt = findViewById(R.id.petnameText);
         vettxt = findViewById(R.id.vetnameText);
@@ -66,7 +68,9 @@ public class MainPetActivity extends AppCompatActivity {
                 PetData[] tempDataArray = gson.fromJson(response.toString(),PetData[].class);
                 String datastring = "\n";
                 for ( PetData petData: tempDataArray){
-                    datastring += petData.date.toString() + "\n";
+                    SimpleDateFormat format = new SimpleDateFormat("dd/MM/yyyy");
+                    String newDate= format.format(petData.date);
+                    datastring += newDate + "\n";
                 }
                 entriestxt.setText("last 5 entries:" + datastring);
             }
@@ -88,5 +92,8 @@ public class MainPetActivity extends AppCompatActivity {
     }
 
     public void LaunchMeasureActivity(View view) {
+        Intent i = new Intent(MainPetActivity.this, MainMeasureActivity.class);
+        i.putExtra("pet",currPet);
+        startActivity(i);
     }
 }
