@@ -10,6 +10,7 @@ import com.android.volley.Response;
 import com.android.volley.VolleyError;
 import com.android.volley.toolbox.JsonArrayRequest;
 import com.android.volley.toolbox.Volley;
+import com.google.firebase.auth.FirebaseAuth;
 import com.google.gson.Gson;
 import org.json.JSONArray;
 import java.util.ArrayList;
@@ -24,6 +25,7 @@ public class HomeScreen extends AppCompatActivity {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_home_screen);
         tempUser = new User("rdPZmdidJ3YmTgVSaKlxinoWFVK2");
+
 
         String URL = "http://35.195.71.21:3000/pet/owner/"+tempUser.GetId();
 
@@ -58,7 +60,7 @@ public class HomeScreen extends AppCompatActivity {
         ) {
             petnames.add(pet.name);
         }
-
+        
         listView = findViewById(R.id.list_view);
         ArrayAdapter arrayAdapter = new ArrayAdapter(this, android.R.layout.simple_list_item_1,petnames);
         listView.setAdapter(arrayAdapter);
