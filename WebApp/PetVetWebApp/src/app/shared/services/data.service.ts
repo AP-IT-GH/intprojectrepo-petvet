@@ -15,7 +15,6 @@ export class DataService {
     return this.http.get<owner>(this.proxy + this.url + "owner/" + uuid);
   }
   getVetData(uuid) {
-    console.log(uuid)
     return this.http.get<owner>(this.proxy + this.url + "vet/" + uuid);
   }
   getPetData(uuid) {

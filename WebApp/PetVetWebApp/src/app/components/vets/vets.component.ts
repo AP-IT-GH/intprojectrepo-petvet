@@ -73,7 +73,6 @@ multi = true;
           this.petDatas = petdata;
           this.petDatas.forEach(y => {
             this.allPets[index].petData.push(y)
-            console.log(this.allPets)
           });
         }, (error: any) => console.log(error))
       });
@@ -89,7 +88,6 @@ multi = true;
         this.ownerPet.push(x)
       }, (error: any) => console.log(error));
     })
-    console.log(this.ownerPet)
   }
 
 }

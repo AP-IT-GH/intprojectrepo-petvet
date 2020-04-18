@@ -1,6 +1,6 @@
-<div *ngIf="DelPostValue == 1"  class=" pb-2  border-bottom">
+<div *ngIf="DelPostValue == 1"  >
   <h1 mat-dialog-title class=" pb-2 mb-3 border-bottom" >Are you sure? </h1>
-  <div mat-dialog-content>
+  <div mat-dialog-content class=" pb-2  border-bottom">
     <p>After pressing 'yes' your pet will be deleted and the data will be gone!</p>
     <p> Pet: <strong>{{petName}}</strong></p>
   </div>
@@ -10,9 +10,9 @@
   </div>
   
 </div>
-<div *ngIf="DelPostValue == 2" class=" pb-2  border-bottom">
+<div *ngIf="DelPostValue == 2">
   <h1 mat-dialog-title class="pb-2  border-bottom" >Update Pet</h1>
-  <div mat-dialog-content>
+  <div mat-dialog-content class=" pb-2  border-bottom">
     <p>Give another name to your pet or change the vet</p>
     <p>you are making changes to <strong>{{petName}}</strong></p> 
     <div>

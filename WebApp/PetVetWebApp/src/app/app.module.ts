@@ -10,6 +10,10 @@ import { ChartModule, LineSeriesService, CategoryService, LegendService, DataLab
 import {TextBoxModule} from '@syncfusion/ej2-angular-inputs';
 import {MatDatepickerModule} from '@angular/material/datepicker';
 import {MatProgressSpinnerModule} from '@angular/material/progress-spinner';
+import {MatInputModule} from '@angular/material/input';
+
+//datepicker 
+import {MatNativeDateModule} from '@angular/material';
 
 
 
@@ -42,7 +46,7 @@ import { environment } from '../environments/environment';
 import { AuthService } from "./shared/services/auth.service";
 import { DateAgoPipe } from './pipes/date-ago.pipe';
 import { DataService } from './shared/services/data.service';
-import { MatFormFieldModule } from '@angular/material/form-field';
+import { MatFormFieldModule,  } from '@angular/material/form-field';
 
 @NgModule({
   exports: [],
@@ -76,7 +80,9 @@ import { MatFormFieldModule } from '@angular/material/form-field';
     TextBoxModule,
     MatDatepickerModule,
     MatFormFieldModule,
-    MatProgressSpinnerModule
+    MatProgressSpinnerModule,
+    MatNativeDateModule,
+    MatInputModule
 
   ],
   providers: [AuthService, LineSeriesService, DataService, CategoryService, LegendService, DataLabelService, TooltipService, DateTimeService,ZoomService],

@@ -1,10 +1,10 @@
-import { Component, OnInit, Input, Inject } from '@angular/core';
+import { Component, OnInit, Input, Inject, ViewEncapsulation } from '@angular/core';
 import { AuthService } from "src/app/shared/services/auth.service";
 import { DataService } from 'src/app/shared/services/data.service';
 import { animate, state, style, transition, trigger } from '@angular/animations'
 import { MatDialog, MatDialogRef, MAT_DIALOG_DATA } from '@angular/material/dialog';
-import { error } from 'protractor';
-import { Validators } from '@angular/forms';
+import { MatCalendarCellCssClasses} from '@angular/material/datepicker';
+
 
 
 
@@ -13,6 +13,7 @@ import { Validators } from '@angular/forms';
   selector: 'app-pets',
   templateUrl: './pets.component.html',
   styleUrls: ['./pets.component.css'],
+  encapsulation: ViewEncapsulation.None,
   animations: [
     trigger('detailExpand', [
       state('collapsed', style({ height: '0px', minHeight: '0' })),
@@ -51,6 +52,23 @@ export class PetsComponent implements OnInit {
   public tooltipSettings: Object;
   public zoom: Object;
 
+  //datapicker 
+  // dateClass = (d: Date): MatCalendarCellCssClasses => {
+  //   const date = d.getDate();
+  //   this.fullPet;
+  //   // Highlight the 1st and 20th day of each month.
+  //   return (date === 1 || date === 20) ? 'example-custom-date-class' : '';
+  // }
+  dateClassfunc(pet, i){
+    pet.forEach(x => {
+      console.log(i, x.date)
+    });
+    (d: Date) => {
+      const date = d.getDate();
+      // Highlight the 1st and 20th day of each month.
+      return (date === 1 || date === 20) ? 'example-custom-date-class' : '';
+    }
+  }
 
   constructor(public authService: AuthService,
     private data: DataService,
@@ -109,6 +127,7 @@ export class PetsComponent implements OnInit {
       this.boolPets = true;
 
     })
+    
   }
 
   put(pet, index) {
@@ -264,6 +283,9 @@ export class DialogDel {
   }
   onChangePet(id) {
     this.data.vetId = id
+  }
+  dateClass(index){
+
   }
 }
 
