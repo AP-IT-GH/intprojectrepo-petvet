@@ -3,71 +3,91 @@
     <h1 class="h2">Vet</h1>
   </div>
   <mat-accordion [multi]="multi">
-<mat-expansion-panel *ngFor="let pet of allPets; let i = index">
-    <mat-expansion-panel-header>
-      <mat-panel-title>
-        <strong>{{i + 1}}. {{pet.name}}</strong>
-      </mat-panel-title>
-      <mat-panel-description>
+    <mat-expansion-panel *ngFor="let pet of allPets; let i = index">
+      <mat-expansion-panel-header>
+        <mat-panel-title>
+          <strong>{{i + 1}}. {{pet.name}}</strong>
+        </mat-panel-title>
+        <mat-panel-description>
           <div *ngFor="let owner of ownerPet">
             <div *ngIf="pet.uuid == owner.uuid">
-             Owner: {{owner.surName}} {{owner.name}}
+              Owner: {{owner.surName}} {{owner.name}}
             </div>
           </div>
-        <!-- <div >
-          Owner: {{pet.uuid}}
-        </div> -->
-      </mat-panel-description>
-    </mat-expansion-panel-header>
-    <div class="mb-3 border-bottom" *ngIf="!pet.petData == []">
-      <ejs-chart [primaryXAxis]='xAxis' [primaryYAxis]='yAxis1' [legendSettings]='legend' [tooltip]='tooltipSettings'
-      width='90%' height='90%' [zoomSettings]='zoom'>
-
-      <e-axes>
-        <e-axis rowIndex=0 name='yAxis2' opposedPosition='true' title='Temperature (Celsius)'
-          [majorGridLines]='majorGridLines' labelFormat='{value}°C' [minimum]='24' [maximum]='42' [interval]='2'
-          [lineStyle]='lineStyle'>
-        </e-axis>
-      </e-axes>
-      <e-series-collection>
-        <!-- <e-series type='Line' [dataSource]="pet.petData[this[i]]" xName='date' yName='weight'></e-series> -->
-        <e-series type='Line' [dataSource]="pet.petData" xName='date' yName='frontRight' name="RightLeg"
-          [marker]="markerSettings"></e-series>
-        <e-series type='Line' [dataSource]="pet.petData" xName='date' yName='frontLeft' name="LeftLeg"
-          [marker]="markerSettings"></e-series>
-
-        <e-series type='Line' [dataSource]="pet.petData" xName='date' yName='backRight' name="backRight"
-          [marker]="markerSettings"></e-series>
-
-        <e-series type='Line' [dataSource]="pet.petData" xName='date' yName='backLeft' name="backLeft"
-          [marker]="markerSettings"></e-series>
-
-        <e-series type='Line' [dataSource]="pet.petData" xName='date' yAxisName='yAxis2' yName='temperature'
-          name="Temperature" [marker]="markerSettings"></e-series>
-
-
-      </e-series-collection>
-    </ejs-chart>
-
-    </div>
-    <div *ngIf='!pet.petData != []' class="mb-3 border-bottom">
-      <strong>No data available! The Owner hasn't used the app yet to get data here </strong>
-    </div>
-    <div>
-      <select [(ngModel)]="this[i]" *ngIf="!pet.petData == []">
-        <option disabled selected hidden>Choose a date</option>
-        <option *ngFor="let data of pet.petData; let i = index" value="{{i}}"> {{data.date | dateAgo}}</option>
-
-      </select>
-    </div>
-    <div *ngIf="this[i] != null">
-      <p>value: {{this[i]}}</p>
-      <p> Temp: {{pet.petData[this[i]].temperature}}</p>
-      <p> weight {{pet.petData[this[i]].frontRight}}</p>
-
-
-    </div>
-  </mat-expansion-panel>
-</mat-accordion>
+        </mat-panel-description>
+      </mat-expansion-panel-header>
+      <div class="mb-3 border-bottom" *ngIf="!pet.petData == []">
+        <ejs-chart [primaryXAxis]='xAxis' [primaryYAxis]='yAxis1' [legendSettings]='legend' [tooltip]='tooltipSettings'
+          width='90%' height='90%' [zoomSettings]='zoom'>
+          <e-axes>
+            <e-axis rowIndex=0 name='yAxis2' opposedPosition='true' title='Temperature (Celsius)'
+              [majorGridLines]='majorGridLines' labelFormat='{value}°C' [minimum]='30' [maximum]='42' [interval]='2'
+              [lineStyle]='lineStyle'>
+            </e-axis>
+          </e-axes>
+          <e-series-collection>
+            <e-series type='Line' [dataSource]="pet.petData" xName='date' yName='frontRight' name="RightLeg"
+              [marker]="markerSettings"></e-series>
+            <e-series type='Line' [dataSource]="pet.petData" xName='date' yName='frontLeft' name="LeftLeg"
+              [marker]="markerSettings"></e-series>
+            <e-series type='Line' [dataSource]="pet.petData" xName='date' yName='backRight' name="backRight"
+              [marker]="markerSettings"></e-series>
+            <e-series type='Line' [dataSource]="pet.petData" xName='date' yName='backLeft' name="backLeft"
+              [marker]="markerSettings"></e-series>
+            <e-series type='Line' [dataSource]="pet.petData" xName='date' yAxisName='yAxis2' yName='temperature'
+              name="Temperature" [marker]="markerSettings"></e-series>
+          </e-series-collection>
+        </ejs-chart>
+      </div>
+      <div *ngIf='!pet.petData != []' class="mb-3 border-bottom">
+        <strong>No data available! The Owner hasn't used the app yet to get data here </strong>
+      </div>
+      <div *ngIf="!pet.petData == []" class="mb-3 border-bottom">
+        <div>
+          <table *ngIf="!pet.average5 == []">
+            <tr>
+              <th style="width:50%">Comparison</th>
+              <th><select [(ngModel)]="this[i]">
+                  <option disabled selected hidden>Choose a date</option>
+                  <option *ngFor="let data of pet.petData; let i = index" value="{{i}}"> {{data.date | dateAgo}}
+                  </option>
+                </select></th>
+              <th>Average of the last {{pet.average5.count}} tests</th>
+            </tr>
+            <tr>
+              <td>Temperature</td>
+              <td><i class="fa " *ngIf="this[i] != null">{{pet.petData[this[i]].temperature}}°C</i></td>
+              <td><i class="fa ">{{pet.average5.temperature | number : '1.2-2'}}°C</i></td>
+            </tr>
+            <tr>
+              <td>Total weight</td>
+              <td><i class="fa" *ngIf="this[i] != null">{{pet.petData[this[i]].weight | number : '1.2-2'}}kg</i> </td>
+              <td><i class="fa">{{pet.average5.weigth | number : '1.2-2'}}kg</i></td>
+            </tr>
+            <tr>
+              <td>Front left leg</td>
+              <td><i class="fa " *ngIf="this[i] != null">{{pet.petData[this[i]].frontLeft}}kg</i></td>
+              <td><i class="fa ">{{pet.average5.frontLeft | number : '1.2-2'}}kg</i></td>
+            </tr>
+            <tr>
+              <td>Front right leg</td>
+              <td><i class="fa" *ngIf="this[i] != null">{{pet.petData[this[i]].frontRight}}kg</i></td>
+              <td><i class="fa ">{{pet.average5.frontRight | number : '1.2-2'}}kg</i></td>
+            </tr>
+            <tr>
+              <td>Back left</td>
+              <td><i class="fa " *ngIf="this[i] != null">{{pet.petData[this[i]].backLeft}}kg</i></td>
+              <td><i class="fa ">{{pet.average5.backLeft | number : '1.2-2'}}kg</i></td>
+            </tr>
+            <tr>
+              <td>backRight</td>
+              <td><i class="fa " *ngIf="this[i] != null">{{pet.petData[this[i]].backRight}}kg</i></td>
+              <td><i class="fa ">{{pet.average5.backRight | number : '1.2-2'}}kg</i></td>
+            </tr>
+          </table>
+        </div>
+      </div>
+    </mat-expansion-panel>
+  </mat-accordion>
 
 </div>

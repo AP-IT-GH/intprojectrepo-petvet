@@ -92,13 +92,6 @@ export class PetsComponent implements OnInit {
       enablePinchZooming: true,
       enableSelectionZooming: true
     };
-
-    var frontRighttemp;
-    var frontLefttemp;
-    var backLefttemp;
-    var backRighttemp;
-    var temperaturetemp;
-    var i = 0;
     //getData
     let owner = localStorage.getItem('user');
     var ownerJson = JSON.parse(owner);
@@ -109,13 +102,13 @@ export class PetsComponent implements OnInit {
       this.boolPets = false;
       this.pets.forEach((x, index) => {
         this.fullPet.push(x)
-        this.data.getLast5datepets(x.petId).subscribe((last5 => {
-          
-          this.last5Temp = this.getAverage(last5);
-          this.fullPet[index].average5 = this.last5Temp
-        }))
+
 
         this.data.getFullPetData(x.petId).subscribe((petdata) => {
+          this.data.getLast5datepets(x.petId).subscribe((last5 => {
+            this.last5Temp = this.getAverage(last5);
+            this.fullPet[index].average5 = this.last5Temp
+          }))
           this.fullPet[index].petData = [];
           this.petDatas = [];
           this.petDatas = petdata;
@@ -167,12 +160,12 @@ export class PetsComponent implements OnInit {
     });
     return {
       count: i,
-      frontLeft: frontLeft/i,
-      frontRight: frontRight/i,
-      backRight: backRight/i,
-      backLeft: backLeft/i,
-      weigth:  (frontRight + frontLeft + backLeft + backRight)/i,
-      temperature: temperature/i,
+      frontLeft: frontLeft / i,
+      frontRight: frontRight / i,
+      backRight: backRight / i,
+      backLeft: backLeft / i,
+      weigth: (frontRight + frontLeft + backLeft + backRight) / i,
+      temperature: temperature / i,
     }
   }
 
@@ -303,7 +296,7 @@ interface petArray {
   name: string,
   vet_uuid: string,
   petData: Arraypet[],
-  average5 : any
+  average5: any
 }
 interface Arraypet {
   date: Date,

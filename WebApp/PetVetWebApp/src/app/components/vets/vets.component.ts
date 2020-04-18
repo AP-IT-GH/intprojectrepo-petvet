@@ -18,15 +18,16 @@ export class VetsComponent implements OnInit {
   public tooltipSettings: Object;
   public zoom: Object;
 
-multi = true;
+  multi = true;
   allPets: any = [];
   vetId: string
   pets: any = [];
   petDatas: any = [];
-  ownerPet: any =[];
+  ownerPet: any = [];
+  last5Temp: any;
   constructor(public authService: AuthService,
     private data: DataService) {
-         //ChartSettings
+    //ChartSettings
     this.tooltipSettings = {
       enable: true
     }
@@ -67,13 +68,20 @@ multi = true;
 
       this.pets.forEach((x, index) => {
         this.allPets.push(x)
+
         this.data.getFullPetData(x.petId).subscribe((petdata) => {
+          this.data.getLast5datepets(x.petId).subscribe((last5 => {
+            this.last5Temp = this.getAverage(last5);
+            this.allPets[index].average5 = this.last5Temp
+          }))
           this.allPets[index].petData = [];
           this.petDatas = [];
           this.petDatas = petdata;
           this.petDatas.forEach(y => {
+            y.weight = (Number(y.frontRight) + Number(y.frontLeft) + Number(y.backRight) + Number(y.backLeft))
             this.allPets[index].petData.push(y)
           });
+
         }, (error: any) => console.log(error))
       });
     }, (error: any) => console.log(error))
@@ -90,4 +98,29 @@ multi = true;
     })
   }
 
+  getAverage(data) {
+    var frontLeft = 0;
+    var frontRight = 0;
+    var backRight = 0;
+    var backLeft = 0;
+    var temperature = 0;
+    var i = 0;
+    data.forEach(x => {
+      i++;
+      frontLeft += Number(x.frontLeft);
+      frontRight += Number(x.frontRight);
+      backRight += Number(x.backRight);
+      backLeft += Number(x.backLeft);
+      temperature += Number(x.temperature);
+    });
+    return {
+      count: i,
+      frontLeft: frontLeft / i,
+      frontRight: frontRight / i,
+      backRight: backRight / i,
+      backLeft: backLeft / i,
+      weigth: (frontRight + frontLeft + backLeft + backRight) / i,
+      temperature: temperature / i,
+    }
+  }
 }
