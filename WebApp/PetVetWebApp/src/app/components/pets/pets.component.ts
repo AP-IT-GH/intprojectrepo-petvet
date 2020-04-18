@@ -3,8 +3,6 @@ import { AuthService } from "src/app/shared/services/auth.service";
 import { DataService } from 'src/app/shared/services/data.service';
 import { animate, state, style, transition, trigger } from '@angular/animations'
 import { MatDialog, MatDialogRef, MAT_DIALOG_DATA } from '@angular/material/dialog';
-import { MatCalendarCellCssClasses } from '@angular/material/datepicker';
-import { access } from 'fs';
 
 
 
@@ -24,12 +22,9 @@ import { access } from 'fs';
   ],
 })
 export class PetsComponent implements OnInit {
-
-  //testing
   vetId: string;
   petName: string;
   delpostvalue: number;
-  //end testing
   petnameInput = "";
   boolPets = false;
 
@@ -118,7 +113,6 @@ export class PetsComponent implements OnInit {
             y.weight = (Number(y.frontRight) + Number(y.frontLeft) + Number(y.backRight) + Number(y.backLeft))
             this.fullPet[index].petData.push(y)
           });
-          console.log(this.fullPet)
         }, (error: any) => console.log(error))
       });
     }, (error: any) => {

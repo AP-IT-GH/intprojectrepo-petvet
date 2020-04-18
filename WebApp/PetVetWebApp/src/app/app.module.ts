@@ -13,7 +13,7 @@ import {MatProgressSpinnerModule} from '@angular/material/progress-spinner';
 import {MatInputModule} from '@angular/material/input';
 
 //datepicker 
-import {MatNativeDateModule} from '@angular/material';
+
 
 
 
@@ -71,7 +71,7 @@ import { MatFormFieldModule,  } from '@angular/material/form-field';
     AngularFirestoreModule,
     ReactiveFormsModule,
     HttpClientModule,
-    Ng2FlatpickrModule,
+
     MatExpansionModule,
     BrowserAnimationsModule,
     FormsModule,
@@ -81,7 +81,6 @@ import { MatFormFieldModule,  } from '@angular/material/form-field';
     MatDatepickerModule,
     MatFormFieldModule,
     MatProgressSpinnerModule,
-    MatNativeDateModule,
     MatInputModule
 
   ],
