@@ -90,7 +90,7 @@
             <mat-datepicker [dateClass]="dateClassfunc(pet.petData, i)" #picker disabled="false"></mat-datepicker>
           </mat-form-field> -->
 
-          <table>
+          <table *ngIf="!pet.average5 == []">
             <tr>
               <th style="width:50%">Comparison</th>
               <th><select [(ngModel)]="this[i]">
@@ -98,33 +98,37 @@
                   <option *ngFor="let data of pet.petData; let i = index" value="{{i}}"> {{data.date | dateAgo}}
                   </option>
                 </select></th>
-              <th>Average of the last 5 tests</th>
+              <th>Average of the last {{pet.average5.count}} tests</th>
             </tr>
-            <td ></td>
             <tr>
               <td>Temperature</td>
               <td><i class="fa " *ngIf="this[i] != null">{{pet.petData[this[i]].temperature}}°C</i></td>
-              <td><i class="fa ">test</i></td>
+              <td><i class="fa ">{{pet.average5.temperature | number : '1.2-2'}}°C</i></td>
+            </tr>
+            <tr>
+              <td>Total weight</td>
+              <td><i class="fa" *ngIf="this[i] != null">{{pet.petData[this[i]].weight | number : '1.2-2'}}kg</i> </td>
+              <td><i class="fa">{{pet.average5.weigth | number : '1.2-2'}}kg</i></td>
             </tr>
             <tr>
               <td>Front left leg</td>
               <td><i class="fa " *ngIf="this[i] != null">{{pet.petData[this[i]].frontLeft}}kg</i></td>
-              <td><i class="fa ">test</i></td>
+              <td><i class="fa ">{{pet.average5.frontLeft | number : '1.2-2'}}kg</i></td>
             </tr>
             <tr>
               <td>Front right leg</td>
               <td><i class="fa" *ngIf="this[i] != null">{{pet.petData[this[i]].frontRight}}kg</i></td>
-              <td><i class="fa ">test</i></td>
+              <td><i class="fa ">{{pet.average5.frontRight | number : '1.2-2'}}kg</i></td>
             </tr>
             <tr>
               <td>Back left</td>
               <td><i class="fa " *ngIf="this[i] != null">{{pet.petData[this[i]].backLeft}}kg</i></td>
-              <td><i class="fa ">test</i></td>
+              <td><i class="fa ">{{pet.average5.backLeft | number : '1.2-2'}}kg</i></td>
             </tr>
             <tr>
               <td>backRight</td>
               <td><i class="fa " *ngIf="this[i] != null">{{pet.petData[this[i]].backRight}}kg</i></td>
-              <td><i class="fa ">test</i></td>
+              <td><i class="fa ">{{pet.average5.backRight | number : '1.2-2'}}kg</i></td>
             </tr>
           </table>
 

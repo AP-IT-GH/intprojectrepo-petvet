@@ -3,7 +3,8 @@ import { AuthService } from "src/app/shared/services/auth.service";
 import { DataService } from 'src/app/shared/services/data.service';
 import { animate, state, style, transition, trigger } from '@angular/animations'
 import { MatDialog, MatDialogRef, MAT_DIALOG_DATA } from '@angular/material/dialog';
-import { MatCalendarCellCssClasses} from '@angular/material/datepicker';
+import { MatCalendarCellCssClasses } from '@angular/material/datepicker';
+import { access } from 'fs';
 
 
 
@@ -42,6 +43,7 @@ export class PetsComponent implements OnInit {
   vetpet: any = [];
   chosenVet: any = "";
   postvet: any = [];
+  last5Temp: any = []
 
   public testChart: Object[];
   public xAxis: Object;
@@ -51,24 +53,12 @@ export class PetsComponent implements OnInit {
   public markerSettings: Object;
   public tooltipSettings: Object;
   public zoom: Object;
-
-  //datapicker 
-  // dateClass = (d: Date): MatCalendarCellCssClasses => {
-  //   const date = d.getDate();
-  //   this.fullPet;
-  //   // Highlight the 1st and 20th day of each month.
-  //   return (date === 1 || date === 20) ? 'example-custom-date-class' : '';
-  // }
-  dateClassfunc(pet, i){
-    pet.forEach(x => {
-      console.log(i, x.date)
-    });
-    (d: Date) => {
-      const date = d.getDate();
-      // Highlight the 1st and 20th day of each month.
-      return (date === 1 || date === 20) ? 'example-custom-date-class' : '';
-    }
-  }
+  frontRighttemp: any;
+  frontLefttemp: any;
+  backLefttemp: any;
+  backRighttemp: any;
+  temperaturetemp: any;
+  itemp: number;
 
   constructor(public authService: AuthService,
     private data: DataService,
@@ -103,7 +93,12 @@ export class PetsComponent implements OnInit {
       enableSelectionZooming: true
     };
 
-
+    var frontRighttemp;
+    var frontLefttemp;
+    var backLefttemp;
+    var backRighttemp;
+    var temperaturetemp;
+    var i = 0;
     //getData
     let owner = localStorage.getItem('user');
     var ownerJson = JSON.parse(owner);
@@ -114,20 +109,29 @@ export class PetsComponent implements OnInit {
       this.boolPets = false;
       this.pets.forEach((x, index) => {
         this.fullPet.push(x)
+        this.data.getLast5datepets(x.petId).subscribe((last5 => {
+          
+          this.last5Temp = this.getAverage(last5);
+          this.fullPet[index].average5 = this.last5Temp
+        }))
+
         this.data.getFullPetData(x.petId).subscribe((petdata) => {
           this.fullPet[index].petData = [];
           this.petDatas = [];
           this.petDatas = petdata;
+
+
           this.petDatas.forEach(y => {
+            y.weight = (Number(y.frontRight) + Number(y.frontLeft) + Number(y.backRight) + Number(y.backLeft))
             this.fullPet[index].petData.push(y)
           });
+          console.log(this.fullPet)
         }, (error: any) => console.log(error))
       });
     }, (error: any) => {
       this.boolPets = true;
-
     })
-    
+
   }
 
   put(pet, index) {
@@ -141,14 +145,36 @@ export class PetsComponent implements OnInit {
       }, (error: any) => console.log(error))
     }
   }
-  delete(pet, index) {
-    console.log(pet, index)
-  }
+
   onChangePet(value) {
     this.chosenVet = "";
     this.chosenVet = value;
   }
-
+  getAverage(data) {
+    var frontLeft = 0;
+    var frontRight = 0;
+    var backRight = 0;
+    var backLeft = 0;
+    var temperature = 0;
+    var i = 0;
+    data.forEach(x => {
+      i++;
+      frontLeft += Number(x.frontLeft);
+      frontRight += Number(x.frontRight);
+      backRight += Number(x.backRight);
+      backLeft += Number(x.backLeft);
+      temperature += Number(x.temperature);
+    });
+    return {
+      count: i,
+      frontLeft: frontLeft/i,
+      frontRight: frontRight/i,
+      backRight: backRight/i,
+      backLeft: backLeft/i,
+      weigth:  (frontRight + frontLeft + backLeft + backRight)/i,
+      temperature: temperature/i,
+    }
+  }
 
   getvet(id) {
     this.vetpet = this.pets.filter(x => x.petId == id)
@@ -164,10 +190,10 @@ export class PetsComponent implements OnInit {
         },
         (error: any) => console.log(error)
       )
-    else 
+    else
       window.alert("No proper Name")
     this.petnameInput = "";
-    
+
   }
 
 
@@ -182,23 +208,16 @@ export class PetsComponent implements OnInit {
   @Input() options: Array<Object>;
 
   openDialog(data, pet, index): void {
-    console.log(data, pet, index);
+
     this.delpostvalue = data;
     const dialogRef = this.dialog.open(DialogDel, {
       width: '300px',
       data: { vetId: this.vetId, petNameret: this.petName, delpostvalue: this.delpostvalue, petName: pet.name, vets: this.vetpet },
-
     });
-
     dialogRef.afterClosed().subscribe(result => {
-      console.log("Result: ", result, ",data:", data)
-
-
       if (result && data == 1) {
         this.deletepet(pet, index)
       } else if (result && data == 2) {
-        console.log("update", pet)
-
         if (result.vetId == undefined) {
           result.vetId = pet.vet_uuid;
         } else if (result.petNameret == undefined) {
@@ -206,14 +225,13 @@ export class PetsComponent implements OnInit {
         }
         this.PostPet(result.vetId, result.petNameret, pet.petId, index)
       }
-
     });
   }
   PostPet(vetId, petName, petId, index) {
     this.fullPet[index].name = petName;
     this.fullPet[index].vet_uuid = vetId
     this.data.PostPetVet(vetId, petId, petName).subscribe(postpet => {
-      console.log(postpet)
+
     }, error => {
       console.log(error)
     })
@@ -231,18 +249,11 @@ export class PetsComponent implements OnInit {
     }
     this.data.deletePet(pet.petId).subscribe(er => console.log(er))
     this.fullPet.splice(index, 1)
-    // this.fullPet[index]= null;
-    // location.reload();
   }
 
   openDialogPost(pet, index): void {
-    console.log("post", pet, index)
   }
 }
-
-
-
-
 
 
 
@@ -267,15 +278,9 @@ export class DialogDel {
   }
 
   onNoClick(): void {
-    console.log(this.data)
     this.dialogRef.close(false);
   }
   onYesClick(id): void {
-    console.log(id)
-    console.log(this.petName, this.data.vetId)
-    // if( id == 1)
-    //   this.dialogRef.close( this.data);
-
     if (this.data.petNameret == undefined && this.data.vetId == undefined && id == 2)
       window.alert("no name or vet selected")
     else
@@ -284,9 +289,7 @@ export class DialogDel {
   onChangePet(id) {
     this.data.vetId = id
   }
-  dateClass(index){
 
-  }
 }
 
 
@@ -299,17 +302,28 @@ interface petArray {
   petId: number,
   name: string,
   vet_uuid: string,
-  petData: Arraypet[]
+  petData: Arraypet[],
+  average5 : any
 }
 interface Arraypet {
-  date,
-  frontRight,
-  frontLeft,
-  backRight,
-  backLeft,
-  petId,
-  dataId,
-  temperature,
+  date: Date,
+  weight: number
+  frontRight: number,
+  frontLeft: number,
+  backRight: number,
+  backLeft: number,
+  petId: number,
+  dataId: number,
+  temperature: number,
 }
+
+// interface last5weight {
+//   weight : number
+//   frontRight;
+//   frontLeft;
+//   backRight;
+//   backLeft;
+//   temperature
+// }
 
 

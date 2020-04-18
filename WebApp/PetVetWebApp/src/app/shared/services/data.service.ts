@@ -21,7 +21,7 @@ export class DataService {
     return this.http.get(this.proxy + this.url + "pet/owner/" + uuid);
   }
   getFullPetData(petid) {
-    return this.http.get(this.proxy + this.url + "petdata/pet/" + petid);
+    return this.http.get<petdata>(this.proxy + this.url + "petdata/pet/" + petid);
   }
   getAllvet() {
     return this.http.get(this.proxy + this.url + "vet/")
@@ -31,7 +31,9 @@ export class DataService {
   }
   getpetsfromvet(id) {
     return this.http.get(this.proxy + this.url + "pet/vet/" + id)
-
+  }
+  getLast5datepets(id){
+    return this.http.get(this.proxy + this.url + "petData/pet/5/" + id)
   }
 
   PostPersonData(uuid, name, age, surName, vet) {
@@ -110,4 +112,14 @@ export interface pet {
   petId: number;
   name: string;
   vet_uuid: string
+}
+export interface petdata {
+  date: Date;
+  frontRight: number;
+  frontLeft: number;
+  backRight : number;
+  backLeft : number;
+  temperature : number;
+  petId : number;
+  dataId : number;
 }
