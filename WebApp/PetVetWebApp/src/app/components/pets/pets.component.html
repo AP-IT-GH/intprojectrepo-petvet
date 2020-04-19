@@ -68,7 +68,7 @@
         <div>
           <table *ngIf="!pet.average5 == []">
             <tr>
-              <th style="width:50%">Comparison</th>
+              <th style="width:20%">Comparison</th>
               <th><select [(ngModel)]="this[i]">
                   <option disabled selected hidden>Choose a date</option>
                   <option *ngFor="let data of pet.petData; let i = index" value="{{i}}"> {{data.date | dateAgo}}

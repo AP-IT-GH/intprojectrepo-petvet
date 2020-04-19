@@ -1,8 +1,8 @@
 
 select {
-  width: 150px;
-  padding: 5px 35px 5px 5px;
-  font-size: 16px;
+  /* font-size: 16px; */
+  padding: 5px 5px;
+
   border: 1px solid #ccc;
   height: 34px;
   -webkit-appearance: none;
@@ -27,11 +27,6 @@ select::-ms-expand {
     padding: 5px\9;
   }
 }
-
-body {
-  margin: 40px;
-}
-
 
 .btn-circle {
   width: 30px;
