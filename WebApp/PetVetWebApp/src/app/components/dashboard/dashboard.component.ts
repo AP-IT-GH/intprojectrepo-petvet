@@ -2,6 +2,7 @@ import { Component, OnInit, NgZone } from '@angular/core';
 import { AuthService } from "../../shared/services/auth.service";
 import { Router } from "@angular/router";
 import { DataService, pet } from 'src/app/shared/services/data.service';
+import { JsonPipe } from '@angular/common';
 
 
 @Component({
@@ -32,6 +33,12 @@ export class DashboardComponent implements OnInit {
     this.data.getOwnerData(ownerJson.uid).subscribe((data) => {
       this.ownerName = data.name;
       this.ownerSurName = data.surName;
+      var name = {
+        name: data.name,
+        surName: data.surName
+      }
+      var namestring = JSON.stringify(name)
+      localStorage.setItem("Name", namestring)
       this.age = data.age;
       this.isVet = false;
       this.gotData = true

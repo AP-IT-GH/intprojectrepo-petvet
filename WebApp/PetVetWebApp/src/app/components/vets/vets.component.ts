@@ -18,6 +18,9 @@ export class VetsComponent implements OnInit {
   public tooltipSettings: Object;
   public zoom: Object;
 
+  name;
+  surName;
+
   multi = true;
   allPets: any = [];
   vetId: string
@@ -60,6 +63,11 @@ export class VetsComponent implements OnInit {
     let owner = localStorage.getItem('user');
     var ownerJson = JSON.parse(owner);
     this.vetId = ownerJson.uid;
+
+    let Name = localStorage.getItem("Name")
+    var NameJson = JSON.parse(Name)
+    this.name = NameJson.name;
+    this.surName = NameJson.surName;
 
 
     this.data.getpetsfromvet(this.vetId).subscribe(pet => {

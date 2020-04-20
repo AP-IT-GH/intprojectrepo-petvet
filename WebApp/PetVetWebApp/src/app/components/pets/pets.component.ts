@@ -27,6 +27,8 @@ export class PetsComponent implements OnInit {
   delpostvalue: number;
   petnameInput = "";
   boolPets = false;
+  name;
+  surName
 
   multi = true;
   public selectedValue;
@@ -91,6 +93,11 @@ export class PetsComponent implements OnInit {
     let owner = localStorage.getItem('user');
     var ownerJson = JSON.parse(owner);
     this.ownerId = ownerJson.uid;
+
+    let Name = localStorage.getItem("Name")
+    var NameJson = JSON.parse(Name)
+    this.name = NameJson.name;
+    this.surName = NameJson.surName;
 
     this.data.getPetData(this.ownerId).subscribe(pet => {
       this.pets = pet
