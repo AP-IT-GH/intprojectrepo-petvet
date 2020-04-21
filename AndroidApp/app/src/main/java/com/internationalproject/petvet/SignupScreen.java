@@ -17,14 +17,15 @@ import com.google.firebase.auth.AuthResult;
 import com.google.firebase.auth.FirebaseAuth;
 
 public class SignupScreen extends AppCompatActivity {
-EditText emailId, password;
-Button btnSignUp;
-TextView tvSignIn;
-FirebaseAuth mFirebaseAuth;
+    EditText emailId, password;
+    Button btnSignUp;
+    TextView tvSignIn;
+    FirebaseAuth mFirebaseAuth;
+    public  String uuid;
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
-        setContentView(R.layout.activity_main);
+        setContentView(R.layout.activity_signup_screen);
 
         mFirebaseAuth = FirebaseAuth.getInstance();
         emailId = findViewById(R.id.emailField);
@@ -61,9 +62,12 @@ FirebaseAuth mFirebaseAuth;
                                 Toast.makeText(getApplicationContext(), "Signup Unsuccessfull! Please try again", Toast.LENGTH_SHORT).show();
                             }
                             else
-                                {
-                                    startActivity(new Intent(SignupScreen.this, HomeScreen.class));
-                                }
+                            {
+                                uuid = mFirebaseAuth.getUid();
+                                User tempUser = User.GetInstance();
+                                tempUser._id = uuid;
+                                startActivity(new Intent(SignupScreen.this, MyPetsActivity.class));
+                            }
                         }
                     });
                 }

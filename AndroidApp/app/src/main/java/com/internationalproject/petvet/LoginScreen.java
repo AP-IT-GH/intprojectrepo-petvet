@@ -22,11 +22,13 @@ public class LoginScreen extends AppCompatActivity {
     Button btnSignUp;
     TextView tvSignUp;
     FirebaseAuth mFirebaseAuth;
+    public  String uuid;
     private FirebaseAuth.AuthStateListener mAuthStateListener;
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_login_screen);
+
         mFirebaseAuth = FirebaseAuth.getInstance();
         emailId = findViewById(R.id.emailField);
         password = findViewById(R.id.passwordField);
@@ -42,7 +44,7 @@ public class LoginScreen extends AppCompatActivity {
                 if (mFireBaseUser != null)
                 {
                     Toast.makeText(LoginScreen.this,"You are logged in",Toast.LENGTH_LONG).show();
-                    Intent i = new Intent( LoginScreen.this, HomeScreen.class);
+                    Intent i = new Intent( LoginScreen.this, MyPetsActivity.class);
                     startActivity(i);
                 }
 
@@ -79,7 +81,10 @@ public class LoginScreen extends AppCompatActivity {
                             }
                             else
                             {
-                                Intent intToHome = new Intent(LoginScreen.this, HomeScreen.class);
+                                Intent intToHome = new Intent(LoginScreen.this, MyPetsActivity.class);
+                                uuid = mFirebaseAuth.getUid();
+                                User tempUser = User.GetInstance();
+                                tempUser._id = uuid;
                                 startActivity(intToHome);
                             }
                         }
