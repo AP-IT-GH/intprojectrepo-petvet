@@ -39,7 +39,10 @@ public class AddPetActivity extends AppCompatActivity {
         if (petnametext.getText().toString().trim().length() > 0) {
 
             final Pet tempPet = new Pet(UserId, petnametext.getText().toString());
+
             Log.e("name: ", petnametext.getText().toString());
+            Log.e("name",tempPet.name);
+            Log.e("user",tempPet.uuid);
             final Toast toastadded = Toast.makeText(this,"Pet has been added",Toast.LENGTH_SHORT);
             StringRequest stringRequest = new StringRequest(Request.Method.POST, URL, new Response.Listener<String>() {
                 @Override

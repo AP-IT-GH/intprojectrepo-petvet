@@ -45,6 +45,9 @@ public class LoginScreen extends AppCompatActivity {
                 {
                     Toast.makeText(LoginScreen.this,"You are logged in",Toast.LENGTH_LONG).show();
                     Intent i = new Intent( LoginScreen.this, MyPetsActivity.class);
+                    uuid = mFirebaseAuth.getUid();
+                    User tempUser = User.GetInstance();
+                    tempUser._id = uuid;
                     startActivity(i);
                 }
 
