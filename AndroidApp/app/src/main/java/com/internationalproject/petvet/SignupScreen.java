@@ -16,7 +16,7 @@ import com.google.android.gms.tasks.Task;
 import com.google.firebase.auth.AuthResult;
 import com.google.firebase.auth.FirebaseAuth;
 
-public class MainActivity extends AppCompatActivity {
+public class SignupScreen extends AppCompatActivity {
 EditText emailId, password;
 Button btnSignUp;
 TextView tvSignIn;
@@ -53,7 +53,7 @@ FirebaseAuth mFirebaseAuth;
                 }
                 else if(!(email.isEmpty() && pwd.isEmpty()))
                 {
-                    mFirebaseAuth.createUserWithEmailAndPassword(email,pwd).addOnCompleteListener(MainActivity.this, new OnCompleteListener<AuthResult>() {
+                    mFirebaseAuth.createUserWithEmailAndPassword(email,pwd).addOnCompleteListener(SignupScreen.this, new OnCompleteListener<AuthResult>() {
                         @Override
                         public void onComplete(@NonNull Task<AuthResult> task) {
                             if(!task.isSuccessful())
@@ -62,7 +62,7 @@ FirebaseAuth mFirebaseAuth;
                             }
                             else
                                 {
-                                    startActivity(new Intent(MainActivity.this, HomeScreen.class));
+                                    startActivity(new Intent(SignupScreen.this, HomeScreen.class));
                                 }
                         }
                     });
@@ -72,7 +72,7 @@ FirebaseAuth mFirebaseAuth;
         tvSignIn.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View v) {
-                Intent i = new Intent(MainActivity.this,LoginScreen.class);
+                Intent i = new Intent(SignupScreen.this,LoginScreen.class);
                 startActivity(i);
             }
         });
