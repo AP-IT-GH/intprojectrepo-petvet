@@ -36,7 +36,7 @@ public class SignupScreen extends AppCompatActivity {
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_signup_screen);
-
+        getSupportActionBar().hide();
         mFirebaseAuth = FirebaseAuth.getInstance();
         emailId = findViewById(R.id.emailField);
         password = findViewById(R.id.passwordField);
