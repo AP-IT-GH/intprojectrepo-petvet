@@ -27,7 +27,7 @@ import java.util.Arrays;
 
 import static java.lang.Thread.sleep;
 
-public class MyPetsActivity extends AppCompatActivity {
+public class MyPetsActivity extends BaseActivity {
 
     private User tempUser;
      ListView listView;

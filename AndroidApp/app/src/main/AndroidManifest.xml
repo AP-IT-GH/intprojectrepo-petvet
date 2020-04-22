@@ -18,14 +18,14 @@
         android:supportsRtl="true"
         android:theme="@style/AppTheme"
         android:usesCleartextTraffic="true">
-        <activity android:name=".EditProfileActivity"></activity>
+        <activity android:name=".EditProfileActivity" android:noHistory="true"></activity>
         <activity android:name=".BaseActivity" />
-        <activity android:name=".LoginScreen" />
-        <activity android:name=".SignupScreen" />
-        <activity android:name=".MainMeasureActivity" />
-        <activity android:name=".EditPetActivity" />
-        <activity android:name=".MainPetActivity" />
-        <activity android:name=".AddPetActivity" />
+        <activity android:name=".LoginScreen" android:noHistory="true" />
+        <activity android:name=".SignupScreen" android:noHistory="true"/>
+        <activity android:name=".MainMeasureActivity"  />
+        <activity android:name=".EditPetActivity" android:noHistory="true" />
+        <activity android:name=".MainPetActivity" android:parentActivityName=".MyPetsActivity"/>
+        <activity android:name=".AddPetActivity" android:noHistory="true"/>
         <activity android:name=".MyPetsActivity" />
         <activity android:name=".MainActivity">
             <intent-filter>

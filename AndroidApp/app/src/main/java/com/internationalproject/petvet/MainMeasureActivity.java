@@ -5,7 +5,7 @@ import androidx.appcompat.app.AppCompatActivity;
 import android.content.Intent;
 import android.os.Bundle;
 
-public class MainMeasureActivity extends AppCompatActivity {
+public class MainMeasureActivity extends BaseActivity {
 
     Pet currPet;
     @Override

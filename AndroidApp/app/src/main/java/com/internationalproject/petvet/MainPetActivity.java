@@ -19,7 +19,7 @@ import com.google.gson.Gson;
 
 import java.text.SimpleDateFormat;
 
-public class MainPetActivity extends AppCompatActivity {
+public class MainPetActivity extends BaseActivity {
 
     TextView nametxt,vettxt,entriestxt;
     Button editBtn,measureBtn;

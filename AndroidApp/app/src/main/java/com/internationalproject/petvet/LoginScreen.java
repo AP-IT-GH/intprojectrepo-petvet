@@ -41,7 +41,7 @@ public class LoginScreen extends AppCompatActivity {
             public void onAuthStateChanged(@NonNull FirebaseAuth firebaseAuth) {
 
 
-                if (mFireBaseUser != null)
+               /* if (mFireBaseUser != null)
                 {
                     Toast.makeText(LoginScreen.this,"You are logged in",Toast.LENGTH_LONG).show();
                     Intent i = new Intent( LoginScreen.this, MyPetsActivity.class);
@@ -49,7 +49,7 @@ public class LoginScreen extends AppCompatActivity {
                     User tempUser = User.GetInstance();
                     tempUser._id = uuid;
                     startActivity(i);
-                }
+                }*/
 
             }
         };
@@ -88,6 +88,7 @@ public class LoginScreen extends AppCompatActivity {
                                 uuid = mFirebaseAuth.getUid();
                                 User tempUser = User.GetInstance();
                                 tempUser._id = uuid;
+
                                 startActivity(intToHome);
                             }
                         }
