@@ -45,7 +45,9 @@ public class BaseActivity extends AppCompatActivity {
                FirebaseAuth.getInstance().signOut();
 
                 Intent loginIntent = new Intent(BaseActivity.this, LoginScreen.class);
+                loginIntent.setFlags(Intent.FLAG_ACTIVITY_NEW_TASK | Intent.FLAG_ACTIVITY_CLEAR_TASK);
                 startActivity(loginIntent);
+                finish();
                 return true;
             default:
                 return super.onOptionsItemSelected(item);
