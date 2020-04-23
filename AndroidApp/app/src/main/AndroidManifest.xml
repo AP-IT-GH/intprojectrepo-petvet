@@ -4,9 +4,9 @@
 
     <uses-permission android:name="android.permission.INTERNET" />
     <uses-permission android:name="android.permission.BLUETOOTH" />
-    <uses-permission android:name="android.permission.BLUETOOTH_ADMIN"/>
+    <uses-permission android:name="android.permission.BLUETOOTH_ADMIN" />
     <uses-permission android:name="android.permission.ACCESS_FINE_LOCATION" />
-    <uses-permission android:name="android.permission.ACCESS_COARSE_LOCATION"/>
+    <uses-permission android:name="android.permission.ACCESS_COARSE_LOCATION" />
 
     <uses-feature
         android:name="android.hardware.bluetooth_le"
@@ -20,14 +20,27 @@
         android:supportsRtl="true"
         android:theme="@style/AppTheme"
         android:usesCleartextTraffic="true">
-        <activity android:name=".EditProfileActivity" android:noHistory="true"></activity>
+        <activity android:name=".SaveMeasurementActivity"></activity>
+        <activity
+            android:name=".EditProfileActivity"
+            android:noHistory="true" />
         <activity android:name=".BaseActivity" />
-        <activity android:name=".LoginScreen" android:noHistory="true" />
-        <activity android:name=".SignupScreen" android:noHistory="true"/>
-        <activity android:name=".MainMeasureActivity"  />
-        <activity android:name=".EditPetActivity" android:noHistory="true" />
-        <activity android:name=".MainPetActivity" android:parentActivityName=".MyPetsActivity"/>
-        <activity android:name=".AddPetActivity" android:noHistory="true"/>
+        <activity
+            android:name=".LoginScreen"
+            android:noHistory="true" />
+        <activity
+            android:name=".SignupScreen"
+            android:noHistory="true" />
+        <activity android:name=".MainMeasureActivity" />
+        <activity
+            android:name=".EditPetActivity"
+            android:noHistory="true" />
+        <activity
+            android:name=".MainPetActivity"
+            android:parentActivityName=".MyPetsActivity" />
+        <activity
+            android:name=".AddPetActivity"
+            android:noHistory="true" />
         <activity android:name=".MyPetsActivity" />
         <activity android:name=".MainActivity">
             <intent-filter>

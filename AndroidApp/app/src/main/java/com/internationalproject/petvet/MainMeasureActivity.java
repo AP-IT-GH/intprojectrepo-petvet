@@ -2,6 +2,9 @@ package com.internationalproject.petvet;
 
 import androidx.appcompat.app.AlertDialog;
 import androidx.appcompat.app.AppCompatActivity;
+
+import java.text.NumberFormat;
+import java.util.Locale;
 import java.util.regex.Matcher;
 import java.util.regex.Pattern;
 import android.Manifest;
@@ -31,6 +34,8 @@ import android.location.LocationManager;
 import android.os.Handler;
 import android.os.ParcelUuid;
 import android.util.Log;
+import android.view.View;
+import android.widget.TextView;
 
 import java.util.ArrayList;
 import java.util.HashMap;
@@ -38,15 +43,17 @@ import java.util.List;
 import java.util.Map;
 import java.util.UUID;
 
-public class MainMeasureActivity extends BaseActivity {
+public class MainMeasureActivity extends AppCompatActivity {
 
     BluetoothManager btManager;
     BluetoothAdapter btAdapter;
     BluetoothLeScanner btScanner;
     ScanSettings settings;
     BluetoothDevice device = null;
+    BluetoothGatt mgatt = null;
 
     String lf, rf, lb, rb, temp;
+    TextView leftF,leftB,rightF,rightB,avg,temperature;
 
     private Map<String, String> mScanResults =new HashMap<>();
 
@@ -60,7 +67,17 @@ public class MainMeasureActivity extends BaseActivity {
         btManager = (BluetoothManager) getSystemService(Context.BLUETOOTH_SERVICE);
         btAdapter = btManager.getAdapter();
         btScanner = btAdapter.getBluetoothLeScanner();
-
+        leftF = findViewById(R.id.LeftFront);
+        leftB = findViewById(R.id.LeftBack);
+        rightF = findViewById(R.id.RightFront);
+        rightB = findViewById(R.id.RightBack);
+        avg = findViewById(R.id.Avarage);
+        lf = "0";
+        lb = "0";
+        rf = "0";
+        rb = "0";
+        temp = "0";
+        temperature = findViewById(R.id.Temperature);
         if(btAdapter != null &&  !btAdapter.isEnabled()){
             Intent enableBT = new Intent(BluetoothAdapter.ACTION_REQUEST_ENABLE);
             startActivityForResult(enableBT, 1);
@@ -78,11 +95,7 @@ public class MainMeasureActivity extends BaseActivity {
             });
             builder.show();
         }
-       // ScanSettings settings = new ScanSettings.Builder().setScanMode(ScanSettings.SCAN_MODE_LOW_LATENCY).build();
-        //List<ScanFilter> filters = new ArrayList<>();
-        //ScanFilter scanFilter = new ScanFilter.Builder().setServiceUuid(ParcelUuid.fromString("000000ff-1fb5-459e-8fcc-c5c9c331914b")).build();
-        //filters.add(scanFilter);
-        //btScanner.startScan(filters,settings, leScanCallback);
+
         btScanner.startScan(leScanCallback);
     }
 
@@ -96,8 +109,7 @@ private ScanCallback leScanCallback = new ScanCallback() {
                  Log.i("","found our device");
 
                  device = result.getDevice();
-                 Handler mHandler = new Handler(MainMeasureActivity.this.getMainLooper());
-                 mHandler.post(new Runnable() {
+                 runOnUiThread(new Runnable() {
                      @Override
                      public void run() {
                          device.connectGatt(MainMeasureActivity.this, true, leGattCallBack, BluetoothDevice.TRANSPORT_LE);
@@ -107,7 +119,7 @@ private ScanCallback leScanCallback = new ScanCallback() {
          }
     };
 
-    public UUID convertFromInteger(int i) {
+public UUID convertFromInteger(int i) {
         final long MSB = 0x0000000000001000L;
         final long LSB = 0x800000805f9b34fbL;
         long value = i & 0xFFFFFFFF;
@@ -144,37 +156,58 @@ private BluetoothGattCallback leGattCallBack = new BluetoothGattCallback() {
               BluetoothGattDescriptor.ENABLE_NOTIFICATION_VALUE);
       gatt.writeDescriptor(descriptor);
 
+
   }
   @Override
     public void onCharacteristicChanged(BluetoothGatt gatt, BluetoothGattCharacteristic characteristic) {
       if(characteristic.getUuid().toString().equals( "0000ff01-36e1-4688-b7f5-ea07361b26a8")) {
-          String data = characteristic.getStringValue(0);
+          final String data = characteristic.getStringValue(0);
 
-          String value = data.substring(1);
+          runOnUiThread(new Runnable() {
+
+              @Override
+              public void run() {
+                 String value = data.substring(1);
 
           switch(data.substring(0,1)) {
               case "L":
                   lf = value;
                   Log.d("lf", lf);
+                  leftF.setText(lf + "kg");
                   break;
               case "l":
                   lb = value;
                   Log.d("lb", lb);
+                  leftB.setText(lb+"kg");
                   break;
               case "R":
                   rf = value;
+                  rightF.setText(rf+"kg");
                   Log.d("rf", rf);
                   break;
               case "r":
                   rb = value;
+                  rightB.setText(rb+"kg");
                   Log.d("rb", rb);
                   break;
               case "T":
                   temp = value;
                   Log.d("temp", temp);
+                  temperature.setText(temp+"°C");
                   break;
           }
-//            gatt.disconnect();
+          float avgfl = (Float.parseFloat(rf) + Float.parseFloat(rb) + Float.parseFloat(lf) + Float.parseFloat(rf))/4;
+                  NumberFormat formatter = NumberFormat.getInstance(Locale.US);
+                  String f = formatter.format(avgfl);
+                  String fo = f.substring(0,f.indexOf('.')+3);
+          avg.setText(fo+"kg");
+              }
+          });
+          if(data.startsWith("T")) {
+              characteristic.setValue("1");
+              gatt.writeCharacteristic(characteristic);
+          }
+          mgatt = gatt;
       }
   }
 
@@ -192,4 +225,26 @@ private BluetoothGattCallback leGattCallBack = new BluetoothGattCallback() {
         Log.i("write", "onCharacteristicWrite: " + status);
     }
 };
+
+    public void Cancel(View view) {
+        if (mgatt != null) {
+            BluetoothGattCharacteristic characteristic =
+                    mgatt.getService(UUID.fromString("000000ff-1fb5-459e-8fcc-c5c9c331914b"))
+                            .getCharacteristic(UUID.fromString("0000ff01-36e1-4688-b7f5-ea07361b26a8"));
+            characteristic.setValue("0");
+            Log.d("send 0",mgatt.writeCharacteristic(characteristic) + "");
+            mgatt = null;
+        }
+        finish();
+    }
+
+    public void Save(View view) {
+        Intent i = new Intent(this, SaveMeasurementActivity.class);
+        i.putExtra("lf",lf);
+        i.putExtra("lb",lb);
+        i.putExtra("rf",rf);
+        i.putExtra("rb",rb);
+        i.putExtra("t",temp);
+        startActivity(i);
+    }
 }
