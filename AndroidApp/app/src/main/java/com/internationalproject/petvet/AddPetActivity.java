@@ -77,4 +77,8 @@ public class AddPetActivity extends AppCompatActivity {
             toast.show();
         }
     }
+
+    public void Cancel(View view) {
+        finish();
+    }
 }

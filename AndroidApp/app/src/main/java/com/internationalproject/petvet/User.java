@@ -7,7 +7,9 @@ class User {
     public String _id;
     private ArrayList<Pet> _pets = new ArrayList<>();
     private static User instance = null;
-
+    public String name;
+    public String surName;
+    public int age;
     public User(){
         this._pets = new ArrayList<>();
     }
