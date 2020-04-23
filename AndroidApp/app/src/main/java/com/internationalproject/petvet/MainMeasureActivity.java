@@ -51,9 +51,10 @@ public class MainMeasureActivity extends AppCompatActivity {
     ScanSettings settings;
     BluetoothDevice device = null;
     BluetoothGatt mgatt = null;
-
+    String fo;
     String lf, rf, lb, rb, temp;
     TextView leftF,leftB,rightF,rightB,avg,temperature;
+
 
     private Map<String, String> mScanResults =new HashMap<>();
 
@@ -62,6 +63,7 @@ public class MainMeasureActivity extends AppCompatActivity {
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_measure_main);
+        getSupportActionBar().hide();
         Intent intent = getIntent();
         currPet = (Pet)intent.getSerializableExtra("pet");
         btManager = (BluetoothManager) getSystemService(Context.BLUETOOTH_SERVICE);
@@ -199,7 +201,7 @@ private BluetoothGattCallback leGattCallBack = new BluetoothGattCallback() {
           float avgfl = (Float.parseFloat(rf) + Float.parseFloat(rb) + Float.parseFloat(lf) + Float.parseFloat(rf))/4;
                   NumberFormat formatter = NumberFormat.getInstance(Locale.US);
                   String f = formatter.format(avgfl);
-                  String fo = f.substring(0,f.indexOf('.')+3);
+                  fo = f.substring(0,f.indexOf('.')+3);
           avg.setText(fo+"kg");
               }
           });
@@ -235,7 +237,9 @@ private BluetoothGattCallback leGattCallBack = new BluetoothGattCallback() {
             Log.d("send 0",mgatt.writeCharacteristic(characteristic) + "");
             mgatt = null;
         }
-        finish();
+        Intent intent = new Intent(this,MainPetActivity.class);
+        intent.putExtra("pet",currPet);
+        startActivity(intent);
     }
 
     public void Save(View view) {
@@ -245,6 +249,8 @@ private BluetoothGattCallback leGattCallBack = new BluetoothGattCallback() {
         i.putExtra("rf",rf);
         i.putExtra("rb",rb);
         i.putExtra("t",temp);
+        i.putExtra("avg",fo);
+        i.putExtra("pet",currPet);
         startActivity(i);
     }
 }

@@ -20,7 +20,8 @@
         android:supportsRtl="true"
         android:theme="@style/AppTheme"
         android:usesCleartextTraffic="true">
-        <activity android:name=".SaveMeasurementActivity"></activity>
+        <activity android:name=".SaveMeasurementActivity"
+            android:noHistory="true"></activity>
         <activity
             android:name=".EditProfileActivity"
             android:noHistory="true" />
@@ -31,7 +32,8 @@
         <activity
             android:name=".SignupScreen"
             android:noHistory="true" />
-        <activity android:name=".MainMeasureActivity" />
+        <activity android:name=".MainMeasureActivity"
+            android:noHistory="true"/>
         <activity
             android:name=".EditPetActivity"
             android:noHistory="true" />
