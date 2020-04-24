@@ -20,6 +20,7 @@ import android.content.Context;
 import android.content.DialogInterface;
 import android.content.Intent;
 import android.content.pm.PackageManager;
+import android.graphics.Color;
 import android.net.wifi.aware.Characteristics;
 import android.os.Bundle;
 import android.bluetooth.BluetoothAdapter;
@@ -35,6 +36,8 @@ import android.os.Handler;
 import android.os.ParcelUuid;
 import android.util.Log;
 import android.view.View;
+import android.view.ViewGroup;
+import android.widget.Button;
 import android.widget.TextView;
 
 import java.util.ArrayList;
@@ -52,8 +55,9 @@ public class MainMeasureActivity extends AppCompatActivity {
     BluetoothDevice device = null;
     BluetoothGatt mgatt = null;
     String fo;
+    Button saveBtn;
     String lf, rf, lb, rb, temp;
-    TextView leftF,leftB,rightF,rightB,avg,temperature;
+    TextView leftF,leftB,rightF,rightB,avg,temperature, connectTxt;
 
 
     private Map<String, String> mScanResults =new HashMap<>();
@@ -63,6 +67,7 @@ public class MainMeasureActivity extends AppCompatActivity {
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_measure_main);
+
         getSupportActionBar().hide();
         Intent intent = getIntent();
         currPet = (Pet)intent.getSerializableExtra("pet");
@@ -74,6 +79,9 @@ public class MainMeasureActivity extends AppCompatActivity {
         rightF = findViewById(R.id.RightFront);
         rightB = findViewById(R.id.RightBack);
         avg = findViewById(R.id.Avarage);
+        saveBtn = findViewById(R.id.saveButton);
+        connectTxt = findViewById(R.id.connecting);
+        saveBtn.setEnabled(false);
         lf = "0";
         lb = "0";
         rf = "0";
@@ -135,7 +143,10 @@ private BluetoothGattCallback leGattCallBack = new BluetoothGattCallback() {
       if(newState == BluetoothProfile.STATE_CONNECTED) {
           Log.i("onConnection", "Discovering services");
           gatt.discoverServices();
+          connectTxt.setTextColor(Color.parseColor("#"));
+          connectTxt.setText("Connected");
       } else
+          connectTxt.setText("Not Connected");
           gatt.close();
   }
 
@@ -196,8 +207,10 @@ private BluetoothGattCallback leGattCallBack = new BluetoothGattCallback() {
                   temp = value;
                   Log.d("temp", temp);
                   temperature.setText(temp+"°C");
+
                   break;
           }
+                  saveBtn.setEnabled(true);
           float avgfl = (Float.parseFloat(rf) + Float.parseFloat(rb) + Float.parseFloat(lf) + Float.parseFloat(rf))/4;
                   NumberFormat formatter = NumberFormat.getInstance(Locale.US);
                   String f = formatter.format(avgfl);
@@ -228,7 +241,7 @@ private BluetoothGattCallback leGattCallBack = new BluetoothGattCallback() {
     }
 };
 
-    public void Cancel(View view) {
+    public void StopMeasuring(View view) {
         if (mgatt != null) {
             BluetoothGattCharacteristic characteristic =
                     mgatt.getService(UUID.fromString("000000ff-1fb5-459e-8fcc-c5c9c331914b"))
