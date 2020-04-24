@@ -143,10 +143,12 @@ private BluetoothGattCallback leGattCallBack = new BluetoothGattCallback() {
       if(newState == BluetoothProfile.STATE_CONNECTED) {
           Log.i("onConnection", "Discovering services");
           gatt.discoverServices();
-          connectTxt.setTextColor(Color.parseColor("#"));
+          connectTxt.setTextColor(Color.GREEN);
           connectTxt.setText("Connected");
       } else
+
           connectTxt.setText("Not Connected");
+      connectTxt.setTextColor(Color.RED);
           gatt.close();
   }
 
