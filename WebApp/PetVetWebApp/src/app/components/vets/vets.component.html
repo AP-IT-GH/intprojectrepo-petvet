@@ -1,6 +1,6 @@
 <div class="col-md-12">
   <div class="pt-3 pb-2 mb-3 border-bottom">
-    <h3>Welcome: <strong>{{name}} {{(surName) ? surName : 'User'}}</strong></h3>
+    <h3>Welcome to <s>Pet</s>Vet: <strong>{{(name) ? name : ''}} {{(surName) ? surName : 'Vet'}}</strong></h3>
   </div>
   <mat-accordion [multi]="multi">
     <mat-expansion-panel *ngFor="let pet of allPets; let i = index">
@@ -89,5 +89,4 @@
       </div>
     </mat-expansion-panel>
   </mat-accordion>
-
 </div>

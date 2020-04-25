@@ -17,6 +17,8 @@ export class VetsComponent implements OnInit {
   public markerSettings: Object;
   public tooltipSettings: Object;
   public zoom: Object;
+  public majorGridLines;
+  public lineStyle;
 
   name;
   surName;
@@ -93,10 +95,7 @@ export class VetsComponent implements OnInit {
         }, (error: any) => console.log(error))
       });
     }, (error: any) => console.log(error))
-
-
   }
-
 
   ngOnInit() {
     this.data.getAllOwner().subscribe((allvet: any) => {

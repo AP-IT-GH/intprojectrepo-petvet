@@ -118,7 +118,6 @@ export class PetsComponent implements OnInit {
     var NameJson = JSON.parse(Name);
     this.name = NameJson.name;
     this.surName = NameJson.surName;
-    console.log(NameJson)
 
     this.data.getPetData(this.ownerId).subscribe(
       (pet) => {

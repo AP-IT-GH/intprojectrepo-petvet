@@ -98,9 +98,6 @@ export class DataService {
   }
 }
 
-
-
-
 export interface owner {
   uuid: string;
   name: string;
