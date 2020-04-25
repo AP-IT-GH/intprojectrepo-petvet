@@ -90,8 +90,8 @@ void loop() {
         //generating "voltage" for testing
         sensorVoltageLF[i] = random(17, 20) / 100.0;  //about 960-1160g
         sensorVoltageRF[i] = random(43, 53) / 100.0;  //about 960-1160g
-        sensorVoltageLB[i] = random(30, 37) / 100.0;  //about 570-780g
-        sensorVoltageRB[i] = random(37, 47) / 100.0;  //about 570-780g
+        sensorVoltageLB[i] = random(30, 38) / 100.0;  //about 570-780g
+        sensorVoltageRB[i] = random(33, 43) / 100.0;  //about 570-780g
         
         }
 // Sum measurements between 30-70
