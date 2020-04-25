@@ -1,6 +1,6 @@
 <div class="col-md-12">
   <div class="pt-3 pb-2 mb-3 border-bottom">
-    <h3>Welcome: <strong>{{name}} {{(surName) ? surName : 'User'}}</strong></h3>
+    <h3>Welcome to Pet<s>Vet</s>: <strong>{{name ? name : ""}} {{(surName) ? surName : 'Owner'}}</strong></h3>
   </div>
   <div>
     <div style="margin-bottom: 10px;"><strong>Add Pet: </strong><input [(ngModel)]="petnameInput" (keyup.enter)="onEnter()"></div>
@@ -40,7 +40,7 @@
       </div>
       <div class="mb-3 border-bottom" *ngIf="!pet.petData == []">
         <ejs-chart [primaryXAxis]='xAxis' [primaryYAxis]='yAxis1' [legendSettings]='legend' [tooltip]='tooltipSettings'
-          width='90%' height='90%' [zoomSettings]='zoom'>
+          width='90%' height='90%' [zoomSettings]='zoom' labelFormat='{value}kg'>
           <e-axes>
             <e-axis rowIndex=0 name='yAxis2' opposedPosition='true' title='Temperature (Celsius)'
               [majorGridLines]='majorGridLines' labelFormat='{value}°C' [minimum]='30' [maximum]='42' [interval]='2'
