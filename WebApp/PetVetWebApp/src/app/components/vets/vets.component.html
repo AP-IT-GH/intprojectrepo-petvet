@@ -2,8 +2,12 @@
   <div class="pt-3 pb-2 mb-3 border-bottom">
     <h3>Welcome to <s>Pet</s>Vet: <strong>{{(name) ? name : ''}} {{(surName) ? surName : 'Vet'}}</strong></h3>
   </div>
+  <div>
+    <input class="form-control" type="text" name="Search" [(ngModel)]="searchPet" autocomplete="name" placeholder=" Search Pet">
+    <br>
+  </div>
   <mat-accordion [multi]="multi">
-    <mat-expansion-panel *ngFor="let pet of allPets; let i = index">
+    <mat-expansion-panel *ngFor="let pet of allPets | filter:searchPet; let i = index">
       <mat-expansion-panel-header>
         <mat-panel-title>
           <strong>{{i + 1}}. {{pet.name}}</strong>

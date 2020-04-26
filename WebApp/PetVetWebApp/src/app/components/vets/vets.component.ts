@@ -20,6 +20,7 @@ export class VetsComponent implements OnInit {
   public majorGridLines;
   public lineStyle;
 
+  searchPet
   name;
   surName;
 

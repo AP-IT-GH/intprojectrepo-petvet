@@ -11,6 +11,7 @@ import {TextBoxModule} from '@syncfusion/ej2-angular-inputs';
 import {MatDatepickerModule} from '@angular/material/datepicker';
 import {MatProgressSpinnerModule} from '@angular/material/progress-spinner';
 import {MatInputModule} from '@angular/material/input';
+import { Ng2SearchPipeModule } from 'ng2-search-filter'
 
 //datepicker 
 
@@ -71,7 +72,7 @@ import { MatFormFieldModule,  } from '@angular/material/form-field';
     AngularFirestoreModule,
     ReactiveFormsModule,
     HttpClientModule,
-
+    Ng2SearchPipeModule,
     MatExpansionModule,
     BrowserAnimationsModule,
     FormsModule,
