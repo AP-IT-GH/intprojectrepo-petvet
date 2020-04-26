@@ -236,6 +236,7 @@ export class PetsComponent implements OnInit {
     const dialogRef = this.dialog.open(DialogDel, {
       width: "300px",
       data: {
+        currentvetid: pet.vet_uuid,
         vetId: this.vetId,
         petNameret: this.petName,
         delpostvalue: this.delpostvalue,
@@ -280,8 +281,6 @@ export class PetsComponent implements OnInit {
     this.data.deletePet(pet.petId).subscribe((er) => console.log(er));
     this.fullPet.splice(index, 1);
   }
-
-  openDialogPost(pet, index): void {}
 }
 
 @Component({
@@ -295,10 +294,12 @@ export class DialogDel {
   petName;
   allVets;
   vet;
+  currentvetid;
   constructor(
     public dialogRef: MatDialogRef<DialogDel>,
     @Inject(MAT_DIALOG_DATA) public data
   ) {
+    this.currentvetid = data.currentvetid
     this.DelPostValue = data.delpostvalue;
     this.petName = data.petName;
     this.allVets = data.vets;

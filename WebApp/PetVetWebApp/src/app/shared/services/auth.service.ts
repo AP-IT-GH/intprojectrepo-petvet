@@ -57,8 +57,6 @@ export class AuthService {
         up and returns promise */
         this.SendVerificationMail();
         // this.SetUserData(result.user);
-        console.log(vet)
-        console.log(name + " - " + surName + " - " + vet + " - " + result.user.uid);
         this.getData.PostPersonData(result.user.uid, name, age, surName, vet)
       }).catch((error) => {
         window.alert(error.message)

@@ -300,8 +300,9 @@ a:not([href]):not([tabindex]):hover {
 }
 
 .dasboard-text {
-  border-left: 1px solid rgb(255, 255, 255, .3);
-  color: rgb(255, 255, 255, .5);
+  border-left: 1px solid #636363;
+  /* color: rgb(255, 255, 255, .5); */
+  color: #636363;
   display: inline-block;
   padding: 0 0 0 14px;
   font-size: 15px;
@@ -343,7 +344,8 @@ a:not([href]):not([tabindex]):hover {
 }
 
 .bg-dark {
-  background-color: #3F51B5 !important;
+  /* background-color: #3F51B5 !important; */
+  background-image: linear-gradient(to top right, white, #39B89E);
 }
 
 .gap-right {
