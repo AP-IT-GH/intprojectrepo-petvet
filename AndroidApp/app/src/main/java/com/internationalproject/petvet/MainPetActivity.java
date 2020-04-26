@@ -47,7 +47,7 @@ public class MainPetActivity extends BaseActivity {
                     Log.e("response: ",response.toString());
                     Gson gson = new Gson();
                     Vet tempVet = gson.fromJson(response.toString(),Vet.class);
-                    vettxt.setText("vet: " + tempVet.surName + " " + tempVet.name);
+                    vettxt.setText("Assigned vet: \n" + tempVet.surName + " " + tempVet.name);
                 }
             },
                     new Response.ErrorListener() {
@@ -72,7 +72,7 @@ public class MainPetActivity extends BaseActivity {
                     String newDate= format.format(petData.date);
                     datastring += newDate + "\n";
                 }
-                entriestxt.setText("last 5 entries:" + datastring);
+                entriestxt.setText("Dates of the last 5 measurements:" + datastring);
             }
         },
                 new Response.ErrorListener() {

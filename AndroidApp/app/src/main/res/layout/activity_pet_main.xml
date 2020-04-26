@@ -1,5 +1,5 @@
 <?xml version="1.0" encoding="utf-8"?>
-<RelativeLayout xmlns:android="http://schemas.android.com/apk/res/android"
+<androidx.constraintlayout.widget.ConstraintLayout xmlns:android="http://schemas.android.com/apk/res/android"
     xmlns:app="http://schemas.android.com/apk/res-auto"
     xmlns:tools="http://schemas.android.com/tools"
     android:layout_width="match_parent"
@@ -10,65 +10,70 @@
         android:id="@+id/petnameText"
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
-        android:layout_marginTop="40dp"
-        android:layout_marginBottom="0dp"
-        android:paddingLeft="10dp"
+
+
+        android:layout_marginTop="64dp"
         android:text="pet"
-        android:textSize="40dp"></TextView>
+        android:textSize="50dp"
+        app:layout_constraintEnd_toEndOf="parent"
+        app:layout_constraintStart_toStartOf="parent"
+        app:layout_constraintTop_toTopOf="parent"></TextView>
 
     <TextView
         android:id="@+id/vetnameText"
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
-        android:layout_alignBottom="@id/petnameText"
-        android:layout_marginStart="0dp"
-        android:layout_marginTop="20dp"
-        android:layout_marginEnd="20dp"
-        android:layout_marginBottom="-60dp"
-        android:paddingLeft="10dp"
-        android:text="vet: none"
-        android:textSize="25dp"></TextView>
+
+
+        android:layout_marginStart="20dp"
+        android:layout_marginTop="64dp"
+        android:text="Assigned vet: \nnone"
+        android:textSize="25dp"
+        app:layout_constraintStart_toStartOf="parent"
+        app:layout_constraintTop_toBottomOf="@+id/petnameText"></TextView>
 
     <TextView
         android:id="@+id/lastEntriesText"
         android:layout_width="match_parent"
         android:layout_height="wrap_content"
-        android:layout_alignBottom="@id/vetnameText"
-        android:layout_marginTop="20dp"
-        android:layout_marginBottom="-220dp"
-        android:paddingLeft="10dp"
-        android:text="last 5 entries:"></TextView>
+
+android:paddingLeft="20dp"
+        android:layout_marginTop="30dp"
+        android:text="Dates of the last 5 measurements:"
+        app:layout_constraintEnd_toEndOf="parent"
+        app:layout_constraintStart_toStartOf="parent"
+        app:layout_constraintTop_toBottomOf="@+id/vetnameText"></TextView>
 
     <LinearLayout
         android:layout_width="match_parent"
         android:layout_height="wrap_content"
         android:layout_alignParentBottom="true"
-        >
+        app:layout_constraintBottom_toBottomOf="parent">
+
         <Button
             android:id="@+id/editButton"
             android:layout_width="0dp"
             android:layout_height="wrap_content"
-            android:layout_weight="0.5"
-            android:text="Edit"
-            android:layout_alignParentBottom="true"
             android:layout_alignLeft="@id/measureButton"
+            android:layout_alignParentBottom="true"
             android:layout_margin="5dp"
+            android:layout_weight="0.5"
             android:onClick="LaunchEditActivity"
-            ></Button>
+            android:text="Edit"></Button>
+
         <Button
             android:id="@+id/measureButton"
             android:layout_width="0dp"
             android:layout_height="wrap_content"
-            android:layout_weight="0.5"
-            android:text="Measure"
             android:layout_alignParentBottom="true"
             android:layout_margin="5dp"
+            android:layout_weight="0.5"
             android:backgroundTint="@color/colorPrimaryDark"
             android:onClick="LaunchMeasureActivity"
-            ></Button>
+            android:text="Measure"></Button>
 
 
     </LinearLayout>
 
 
-</RelativeLayout>
+</androidx.constraintlayout.widget.ConstraintLayout>

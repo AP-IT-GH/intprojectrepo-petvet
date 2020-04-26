@@ -65,17 +65,18 @@ public class SaveMeasurementActivity extends AppCompatActivity {
     }
 
     public void Save(View view) {
-        RequestQueue requestQueue = Volley.newRequestQueue(this);
+
+        if(lf != "0" && lb != "0" && rf != "0" && rb != "0" && temp != "0") {
+
+            RequestQueue requestQueue = Volley.newRequestQueue(this);
 
 
-
-
-
-           String URL = "http://35.195.71.21:3000/petData/";
+            String URL = "http://35.195.71.21:3000/petData/";
             StringRequest stringRequest = new StringRequest(Request.Method.POST, URL, new Response.Listener<String>() {
                 @Override
                 public void onResponse(String response) {
-                    Log.e("response: ",response.toString());
+                    Log.e("response: ", response.toString());
+                    Toast.makeText(getApplicationContext(), "Measurements saved", Toast.LENGTH_LONG).show();
                     finish();
 
                 }
@@ -83,25 +84,28 @@ public class SaveMeasurementActivity extends AppCompatActivity {
                     new Response.ErrorListener() {
                         @Override
                         public void onErrorResponse(VolleyError error) {
-                            Log.e("error: ",error.toString());
+                            Log.e("error: ", error.toString());
+                            Toast.makeText(getApplicationContext(), "An error occurred", Toast.LENGTH_LONG).show();
                         }
-                    }){
+                    }) {
                 @Override
-                protected Map<String, String> getParams()
-                {
+                protected Map<String, String> getParams() {
                     Map<String, String> params = new HashMap<String, String>();
                     params.put("date", dateString);
-                    params.put("frontRight",rf);
-                    params.put("frontLeft",lf);
-                    params.put("backRight",rb);
-                    params.put("backLeft",lb);
-                    params.put("petId", currPet.petId+"");
-                    params.put("temperature",temp);
+                    params.put("frontRight", rf);
+                    params.put("frontLeft", lf);
+                    params.put("backRight", rb);
+                    params.put("backLeft", lb);
+                    params.put("petId", currPet.petId + "");
+                    params.put("temperature", temp);
                     return params;
                 }
 
             };
             requestQueue.add(stringRequest);
+        } else{
+            Toast.makeText(getApplicationContext(), "Unable to save measurement, some value are zero.", Toast.LENGTH_LONG).show();
+        }
 
     }
 }
