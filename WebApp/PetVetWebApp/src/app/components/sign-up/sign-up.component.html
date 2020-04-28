@@ -1,0 +1,57 @@
+<div class="displayTable">
+  <div class="displayTableCell">
+
+    <div class="px-logo">
+      <img src="https://cdn.discordapp.com/attachments/358283867368718368/677597139525959690/PetVet-Logo.png">
+  </div>
+
+    <div class="authBlock">
+      <h3>Sign Up</h3>
+
+      <div class="formGroup">
+        <input name="firstname" type="text" class="formControl" placeholder="Name" #userName required>
+      </div>
+
+      <div class="formGroup">
+        <input name="lastname" type="text" class="formControl" placeholder="Surname" #userSurName required>
+      </div>
+
+      <div class="formGroup">
+        <input name="email" type="email" class="formControl" placeholder="Email Address" #userEmail required>
+      </div>
+
+      <div class="formGroup">
+        <input name="password" type="password" class="formControl" placeholder="Password" #userPwd required>
+      </div>
+
+      <div class="formGroup">
+        <input name="age" type="number" class="formControl" placeholder="Age" #userAge required>
+      </div>
+
+      <label class=" text-info" for="vet"> Are you a vet?  <input #userCheck class=" mce-textbox float-lg-right box" type="checkbox" ></label>
+  
+
+      <div class="formGroup">
+        <input type="button" class="btn btnPrimary" value="Sign Up" (click)="authService.SignUp(userEmail.value, userPwd.value, userName.value, userSurName.value, userCheck.checked, userAge.value)">
+      </div>
+<!-- 
+      <div class="formGroup">
+        <span class="or"><span class="orInner">Or</span></span>
+      </div> -->
+
+      <!-- Continue with Google -->
+      <!-- <div class="formGroup">
+        <button type="button" class="btn googleBtn" (click)="authService.GoogleAuth()">
+          <i class="fab fa-google-plus-g"></i>
+          Continue with Google
+        </button>
+      </div> -->
+      
+    </div>
+
+    <div class="redirectToLogin">
+      <span>Already have an account? <span class="redirect" routerLink="/sign-in">Log In</span></span>
+    </div>
+  </div>
+
+</div>

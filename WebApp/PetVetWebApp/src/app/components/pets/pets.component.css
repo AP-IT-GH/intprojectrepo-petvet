@@ -1,0 +1,157 @@
+select {
+  /* font-size: 16px; */
+  padding: 5px 5px;
+
+  border: 1px solid #ccc;
+  height: 34px;
+  /* -webkit-appearance: none; */
+  -moz-appearance: none;
+  /* appearance: none; */
+}
+
+element.style {
+  margin-bottom: 10px;
+  width: 68%;
+}
+
+/* CAUTION: IE hackery ahead */
+select::-ms-expand {
+  display: none;
+  /* remove default arrow on ie10 and ie11 */
+}
+
+/* target Internet Explorer 9 to undo the custom arrow */
+@media screen and (min-width:0\0) {
+  select {
+    background: none\9;
+    padding: 5px\9;
+  }
+}
+
+.btn-circle {
+  width: 30px;
+  height: 30px;
+  text-align: center;
+  padding: 6px 0;
+  font-size: 12px;
+  line-height: 1.428571429;
+  border-radius: 15px;
+}
+
+.btn-circle.btn-lg {
+  width: 50px;
+  height: 50px;
+  padding: 10px 16px;
+  font-size: 18px;
+  line-height: 1.33;
+  border-radius: 25px;
+}
+
+.btn-circle.btn-xl {
+  width: 70px;
+  height: 70px;
+  padding: 10px 16px;
+  font-size: 24px;
+  line-height: 1.33;
+  border-radius: 35px;
+}
+
+.accept {
+  margin: 5px;
+  background-color: transparent;
+  border-radius: 42px;
+  border: 1px solid #00f371;
+  display: inline-block;
+  cursor: pointer;
+  color: #000000;
+  font-family: Arial;
+  font-size: 13px;
+  font-weight: bold;
+  padding: 6px 11px;
+  text-decoration: none;
+}
+
+.accept:hover {
+  background-color: #00ff404f;
+}
+
+.accept:active {
+  position: relative;
+  top: 1px;
+}
+
+.Delete {
+  margin: 5px;
+  background-color: transparent;
+  border-radius: 42px;
+  border: 1px solid #e4112d;
+  display: inline-block;
+  cursor: pointer;
+  color: #000000;
+  font-family: Arial;
+  font-size: 13px;
+  font-weight: bold;
+  padding: 6px 11px;
+  text-decoration: none;
+}
+
+.Delete:hover {
+  background-color: #ff002249;
+}
+
+.Delete:active {
+  position: relative;
+  top: 1px;
+}
+
+.Post {
+  margin: 5px;
+  background-color: transparent;
+  border-radius: 42px;
+  border: 1px solid #3111e4;
+  display: inline-block;
+  cursor: pointer;
+  color: #000000;
+  font-family: Arial;
+  font-size: 13px;
+  font-weight: bold;
+  padding: 6px 11px;
+  text-decoration: none;
+}
+
+.Post:hover {
+  background-color: #4706fb49;
+}
+
+.Post:active {
+  position: relative;
+  top: 1px;
+}
+
+.example-custom-date-class {
+  background: orange;
+  border-radius: 100%;
+}
+
+
+table {
+  border-collapse: collapse;
+  border-spacing: 0;
+  width: 100%;
+  border: 1px solid #ddd;
+}
+
+th,
+td {
+  text-align: center;
+  padding: 16px;
+}
+
+th:first-child,
+td:first-child {
+  text-align: left;
+}
+
+tr:nth-child(even) {
+  background-color: #f2f2f2
+}
