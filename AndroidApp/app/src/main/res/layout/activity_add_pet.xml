@@ -6,51 +6,61 @@
     android:layout_height="match_parent"
     tools:context=".AddPetActivity">
 
-    <TextView
-        android:id="@+id/textView"
-        android:layout_width="wrap_content"
-        android:layout_height="50dp"
-        android:text="name:"
-        android:textSize="18dp"
+    <EditText
+        android:id="@+id/petNameText"
+        android:layout_width="261dp"
+        android:layout_height="66dp"
+        android:layout_marginBottom="348dp"
+        android:hint="@string/name"
         app:layout_constraintBottom_toBottomOf="parent"
         app:layout_constraintEnd_toEndOf="parent"
-        app:layout_constraintHorizontal_bias="0.096"
+        app:layout_constraintStart_toStartOf="parent"
+        android:importantForAutofill="no"
+        android:inputType="text" />
+
+    <TextView
+        android:id="@+id/instr"
+        android:layout_width="197dp"
+        android:layout_height="46dp"
+        android:layout_marginBottom="144dp"
+        android:gravity="center_horizontal"
+        android:text="@string/description"
+        android:textSize="18sp"
+        app:layout_constraintBottom_toTopOf="@+id/petNameText"
+        app:layout_constraintEnd_toEndOf="parent"
         app:layout_constraintStart_toStartOf="parent"
         app:layout_constraintTop_toTopOf="parent"
-        app:layout_constraintVertical_bias="0.096"></TextView>
+        app:layout_constraintVertical_bias="1.0" />
 
-    <EditText
+    <Button
+        android:id="@+id/cancelBtn"
+        android:layout_width="110dp"
+        android:layout_height="50dp"
+        android:layout_marginStart="72dp"
+        android:layout_marginTop="130dp"
+        android:layout_weight="0.5"
+        android:onClick="Cancel"
+        android:padding="5dp"
+        android:text="@string/cancel"
+        app:layout_constraintBottom_toBottomOf="parent"
+        app:layout_constraintStart_toStartOf="parent"
+        app:layout_constraintTop_toBottomOf="@+id/petNameText"
+        app:layout_constraintVertical_bias="0.0" />
 
-        android:id="@+id/petNameText"
-        android:layout_width="match_parent"
-        android:layout_height="60dp"
-        android:hint="  type name here"
-        app:layout_constraintTop_toBottomOf="@+id/textView"
-        tools:layout_editor_absoluteX="0dp" />
-
-    <LinearLayout
-        android:layout_width="match_parent"
-        android:layout_height="wrap_content"
-        app:layout_constraintBottom_toBottomOf="parent">
-        <Button
-            android:id="@+id/cancelBtn"
-            android:layout_width="0dp"
-            android:layout_height="wrap_content"
-            android:layout_weight="0.5"
-            android:padding="5dp"
-            android:text="Cancel"
-            android:onClick="Cancel"></Button>
-        <Button
-            android:id="@+id/button"
-            android:layout_width="0dp"
-            android:layout_height="wrap_content"
-            android:layout_weight="0.5"
-            android:padding="5dp"
-            android:layout_marginBottom="8dp"
-            android:onClick="AddPet"
-            android:backgroundTint="@color/colorPrimaryDark"
-            android:text="Add pet"
-            />
-    </LinearLayout>
+    <Button
+        android:id="@+id/button"
+        android:layout_width="110dp"
+        android:layout_height="50dp"
+        android:layout_marginTop="130dp"
+        android:layout_marginEnd="72dp"
+        android:layout_weight="0.5"
+        android:backgroundTint="@color/colorPrimaryDark"
+        android:onClick="AddPet"
+        android:padding="5dp"
+        android:text="@string/add_pet"
+        app:layout_constraintBottom_toBottomOf="parent"
+        app:layout_constraintEnd_toEndOf="parent"
+        app:layout_constraintTop_toBottomOf="@+id/petNameText"
+        app:layout_constraintVertical_bias="0.0" />
 
 </androidx.constraintlayout.widget.ConstraintLayout>

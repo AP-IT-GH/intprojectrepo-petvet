@@ -1,3 +1,17 @@
 <resources>
     <string name="app_name">PetVet</string>
+    <string name="logo_petvet">logo: PetVet</string>
+    <string name="password">password</string>
+    <string name="sign_up">No account yet? Sign up here.</string>
+    <string name="log_in">Log In</string>
+    <string name="email">email</string>
+    <string name="name">name</string>
+    <string name="description">Type the name of your pet to add it to the list.</string>
+    <string name="cancel">Cancel</string>
+    <string name="add_pet">Add pet</string>
+    <string name="confirm">Confirm</string>
+    <string name="edit_profile">Edit profile:</string>
+    <string name="ass_vet">Assigned vet: \nnone</string>
+    <string name="date">Dates of the last 5 measurements:</string>
+    <string name="pet">pet</string>
 </resources>

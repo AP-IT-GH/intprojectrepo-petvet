@@ -32,6 +32,6 @@
         app:layout_constraintTop_toTopOf="parent"
         app:layout_constraintVertical_bias="0.231"
         app:srcCompat="@drawable/petvetcropped"
-        android:contentDescription="logo: PetVet" />
+        android:contentDescription="@string/logo_petvet" />
 
 </androidx.constraintlayout.widget.ConstraintLayout>

@@ -8,62 +8,93 @@
 
 
     <EditText
-
         android:id="@+id/editname"
-        android:layout_width="match_parent"
-        android:layout_height="wrap_content"
+        android:layout_width="260dp"
+        android:layout_height="40dp"
         android:layout_alignParentTop="true"
-
-        android:layout_marginTop="100dp"
+        android:layout_marginTop="232dp"
+        app:layout_constraintEnd_toEndOf="parent"
+        app:layout_constraintHorizontal_bias="0.496"
+        app:layout_constraintStart_toStartOf="parent"
         app:layout_constraintTop_toTopOf="parent"
-        tools:layout_editor_absoluteX="0dp"></EditText>
+        android:inputType="text"
+        android:importantForAutofill="no"
+        tools:ignore="LabelFor" />
 
     <EditText
-
         android:id="@+id/editsurName"
-        android:layout_width="match_parent"
+        android:layout_width="260dp"
         android:layout_height="wrap_content"
         android:layout_alignParentTop="true"
-
-
-        android:layout_marginTop="40dp"
+        android:layout_marginTop="68dp"
+        app:layout_constraintEnd_toEndOf="parent"
+        app:layout_constraintHorizontal_bias="0.496"
+        app:layout_constraintStart_toStartOf="parent"
         app:layout_constraintTop_toBottomOf="@+id/editname"
-        tools:layout_editor_absoluteX="16dp"></EditText>
+        android:importantForAutofill="no"
+        android:inputType="text" />
 
     <EditText
-
         android:id="@+id/editage"
-        android:layout_width="match_parent"
+        android:layout_width="260dp"
         android:layout_height="wrap_content"
         android:layout_alignParentTop="true"
-
-        android:layout_marginTop="40dp"
+        android:layout_marginTop="80dp"
+        app:layout_constraintEnd_toEndOf="parent"
+        app:layout_constraintHorizontal_bias="0.496"
+        app:layout_constraintStart_toStartOf="parent"
         app:layout_constraintTop_toBottomOf="@+id/editsurName"
-        tools:layout_editor_absoluteX="0dp"></EditText>
+        android:importantForAutofill="no"
+        android:inputType="text" />
 
     <LinearLayout
+        android:id="@+id/linearLayout2"
         android:layout_width="match_parent"
         android:layout_height="wrap_content"
         android:layout_marginBottom="10dp"
         app:layout_constraintBottom_toBottomOf="parent">
 
-        <Button
-            android:id="@+id/cancelButton"
-            android:layout_width="0dp"
-            android:layout_height="wrap_content"
-            android:layout_weight="0.5"
-            android:onClick="Cancel"
-            android:padding="5dp"
-            android:text="Cancel"></Button>
-
-        <Button
-            android:id="@+id/confirmButton"
-            android:layout_width="0dp"
-            android:layout_height="wrap_content"
-            android:layout_weight="0.5"
-            android:backgroundTint="@color/colorPrimaryDark"
-            android:onClick="Confirm"
-            android:padding="5dp"
-            android:text="Confirm"></Button>
     </LinearLayout>
+
+    <Button
+        android:id="@+id/cancelButton"
+        android:layout_width="110dp"
+        android:layout_height="50dp"
+        android:layout_marginStart="72dp"
+        android:layout_marginBottom="88dp"
+        android:layout_weight="0.5"
+        android:onClick="Cancel"
+        android:padding="5dp"
+        android:text="@string/cancel"
+        app:layout_constraintBottom_toBottomOf="parent"
+        app:layout_constraintStart_toStartOf="parent"
+        app:layout_constraintTop_toBottomOf="@+id/editage"
+        app:layout_constraintVertical_bias="0.931" />
+
+    <Button
+        android:id="@+id/confirmButton"
+        android:layout_width="110dp"
+        android:layout_height="50dp"
+        android:layout_marginEnd="84dp"
+        android:layout_weight="0.5"
+        android:backgroundTint="@color/colorPrimaryDark"
+        android:onClick="Confirm"
+        android:padding="5dp"
+        android:text="@string/confirm"
+        app:layout_constraintBottom_toTopOf="@+id/linearLayout2"
+        app:layout_constraintEnd_toEndOf="parent"
+        app:layout_constraintTop_toBottomOf="@+id/editage"
+        app:layout_constraintVertical_bias="0.481" />
+
+    <TextView
+        android:id="@+id/profile"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:text="@string/edit_profile"
+        android:textSize="20sp"
+        app:layout_constraintBottom_toTopOf="@+id/editname"
+        app:layout_constraintEnd_toEndOf="parent"
+        app:layout_constraintStart_toStartOf="parent"
+        app:layout_constraintTop_toTopOf="parent"
+        app:layout_constraintVertical_bias="0.629" />
 </androidx.constraintlayout.widget.ConstraintLayout>

@@ -10,39 +10,34 @@
         android:id="@+id/petnameText"
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
-
-
         android:layout_marginTop="64dp"
-        android:text="pet"
-        android:textSize="50dp"
+        android:text="@string/pet"
+        android:textSize="50sp"
         app:layout_constraintEnd_toEndOf="parent"
         app:layout_constraintStart_toStartOf="parent"
-        app:layout_constraintTop_toTopOf="parent"></TextView>
+        app:layout_constraintTop_toTopOf="parent" />
 
     <TextView
         android:id="@+id/vetnameText"
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
-
-
         android:layout_marginStart="20dp"
         android:layout_marginTop="64dp"
-        android:text="Assigned vet: \nnone"
-        android:textSize="25dp"
+        android:text="@string/ass_vet"
+        android:textSize="25sp"
         app:layout_constraintStart_toStartOf="parent"
-        app:layout_constraintTop_toBottomOf="@+id/petnameText"></TextView>
+        app:layout_constraintTop_toBottomOf="@+id/petnameText" />
 
     <TextView
         android:id="@+id/lastEntriesText"
         android:layout_width="match_parent"
         android:layout_height="wrap_content"
-
-android:paddingLeft="20dp"
+        android:paddingStart="20dp"
         android:layout_marginTop="30dp"
-        android:text="Dates of the last 5 measurements:"
+        android:text="@string/date"
         app:layout_constraintEnd_toEndOf="parent"
         app:layout_constraintStart_toStartOf="parent"
-        app:layout_constraintTop_toBottomOf="@+id/vetnameText"></TextView>
+        app:layout_constraintTop_toBottomOf="@+id/vetnameText" />
 
     <LinearLayout
         android:layout_width="match_parent"
@@ -59,7 +54,7 @@ android:paddingLeft="20dp"
             android:layout_margin="5dp"
             android:layout_weight="0.5"
             android:onClick="LaunchEditActivity"
-            android:text="Edit"></Button>
+            android:text="Edit" />
 
         <Button
             android:id="@+id/measureButton"
@@ -70,8 +65,7 @@ android:paddingLeft="20dp"
             android:layout_weight="0.5"
             android:backgroundTint="@color/colorPrimaryDark"
             android:onClick="LaunchMeasureActivity"
-            android:text="Measure"></Button>
-
+            android:text="Measure" />
 
     </LinearLayout>
 
