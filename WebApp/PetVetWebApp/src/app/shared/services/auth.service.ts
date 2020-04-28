@@ -3,7 +3,7 @@ import { User } from "../services/user";
 import { DataService } from "../services/data.service"
 import { auth } from 'firebase/app';
 import { AngularFireAuth } from "@angular/fire/auth";
-import { AngularFirestore, AngularFirestoreDocument } from '@angular/fire/firestore';
+import { AngularFirestore, } from '@angular/fire/firestore';
 import { Router } from "@angular/router";
 
 
@@ -43,7 +43,7 @@ export class AuthService {
         this.ngZone.run(() => {
           this.router.navigate(['dashboard']);
         });
-        this.SetUserData(result.user);
+        // this.SetUserData(result.user);
       }).catch((error) => {
         window.alert(error.message)
       })
@@ -55,7 +55,7 @@ export class AuthService {
       .then((result) => {
         /* Call the SendVerificaitonMail() function when new user sign 
         up and returns promise */
-        this.SendVerificationMail();
+        // this.SendVerificationMail();
         // this.SetUserData(result.user);
         this.getData.PostPersonData(result.user.uid, name, age, surName, vet)
       }).catch((error) => {
@@ -100,7 +100,7 @@ export class AuthService {
        this.ngZone.run(() => {
           this.router.navigate(['dashboard']);
         })
-      this.SetUserData(result.user);
+      // this.SetUserData(result.user);
     }).catch((error) => {
       window.alert(error)
     })
@@ -110,7 +110,7 @@ export class AuthService {
   sign up with username/password and sign in with social auth  
   provider in Firestore database using AngularFirestore + AngularFirestoreDocument service */
   SetUserData(user) {
-    const userRef: AngularFirestoreDocument<any> = this.afs.doc(`users/${user.uid}`);
+    const userRef  = this.afs.doc(`users/${user.uid}`);
     const userData: User = {
       uid: user.uid,
       email: user.email,

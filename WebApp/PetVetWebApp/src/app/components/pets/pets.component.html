@@ -3,7 +3,8 @@
     <h3>Welcome to Pet<s>Vet</s>: <strong>{{name ? name : ""}} {{(surName) ? surName : 'Owner'}}</strong></h3>
   </div>
   <div>
-    <div style="margin-bottom: 10px;"><strong>Add Pet: </strong><input [(ngModel)]="petnameInput" (keyup.enter)="onEnter()"></div>
+    <div style="margin-bottom: 10px;"> <input class="form-control" type="text" [(ngModel)]="petnameInput" (keyup.enter)="onEnter()" placeholder="Add Pet!">
+    <br></div>
     <div class="box">
     </div>
   </div>

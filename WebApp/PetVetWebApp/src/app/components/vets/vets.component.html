@@ -2,8 +2,8 @@
   <div class="pt-3 pb-2 mb-3 border-bottom">
     <h3>Welcome to <s>Pet</s>Vet: <strong>{{(name) ? name : ''}} {{(surName) ? surName : 'Vet'}}</strong></h3>
   </div>
-  <div>
-    <input class="form-control" type="text" name="Search" [(ngModel)]="searchPet" autocomplete="name" placeholder=" Search Pet">
+  <div style="margin-bottom: 10px;">
+    <input class="form-control" type="text" name="Search" [(ngModel)]="searchPet" autocomplete="off" placeholder=" Search Pet!">
     <br>
   </div>
   <mat-accordion [multi]="multi">

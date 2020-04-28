@@ -10,6 +10,7 @@ export class DataService {
 
   constructor(private http: HttpClient) { }
   proxy = "https://cors-anywhere.herokuapp.com/";
+  // proxy = "";fi
   url = "http://35.195.71.21:3000/";
   getOwnerData(uuid) {
     return this.http.get<owner>(this.proxy + this.url + "owner/" + uuid);
