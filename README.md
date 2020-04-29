@@ -13,8 +13,8 @@ It will measure the weight (its distribution), and the temperature. If the resul
 [The webapp](https://petvet-268116.web.app/) can be used to view previous measurement results.
 If you are a vet you can use the webapp to view measurement results from all your connected clients.
 
-A [live demo](https://ap.cloud.panopto.eu/Panopto/Pages/Viewer.aspx?id=0ec85a0f-d598-4ed0-a042-aba900d65575) of the android app and
-[live demo](https://ap.cloud.panopto.eu/Panopto/Pages/Viewer.aspx?id=0ec85a0f-d598-4ed0-a042-aba900d65575) of the webapp, can be found on 'Panopto' if you have access to our organisation.
+A [live demo of the android app](https://ap.cloud.panopto.eu/Panopto/Pages/Viewer.aspx?id=0ec85a0f-d598-4ed0-a042-aba900d65575) and
+[live demo of the webapp](https://ap.cloud.panopto.eu/Panopto/Pages/Viewer.aspx?id=205b97de-05bb-49ba-a6f1-abaa00b781ba), can be found on 'Panopto' if you have access to our organisation.
 
 
 This is a school project made by students of:
